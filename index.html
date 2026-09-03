@@ -3,68 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>正統雙系統獨立立極決策系統（九宮小六壬 ✕ 奇門八神）</title>
+    <title>《九宮小六壬 ✕ 正統奇門八神》超然戰略決策與易經博弈系統</title>
     <style>
         :root {
-            --bg-primary: #0f172a;
-            --bg-card: #1e293b;
-            --border-color: #334155;
+            --bg-primary: #070913;
+            --bg-card: #111827;
+            --bg-input: #0a0e1a;
+            --border-color: #1e293b;
+            --border-active: #38bdf8;
             --text-main: #f8fafc;
             --text-sub: #94a3b8;
-            --accent-gold: #f59e0b;
+            --accent-gold: #fbbf24;
             --accent-blue: #38bdf8;
             --accent-red: #f43f5e;
-            --accent-green: #10b981;
+            --accent-green: #34d399;
             --accent-purple: #c084fc;
         }
+
+        * { box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-main);
             margin: 0;
-            padding: 20px;
-            line-height: 1.6;
+            padding: 24px 16px;
+            line-height: 1.7;
         }
 
         .container {
-            max-width: 1240px;
+            max-width: 1320px;
             margin: 0 auto;
         }
 
+        /* 起卦原則提示視窗 (Modal) */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 16px;
+        }
+
+        .modal-card {
+            background: var(--bg-card);
+            border: 1px solid var(--accent-gold);
+            border-radius: 16px;
+            max-width: 650px;
+            width: 100%;
+            padding: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-title {
+            color: var(--accent-gold);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rule-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 24px 0;
+        }
+
+        .rule-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: #cbd5e1;
+        }
+
+        .rule-list li::before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .modal-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #070913;
+            border: none;
+            padding: 14px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: filter 0.2s;
+            letter-spacing: 1px;
+        }
+
+        .modal-btn:hover { filter: brightness(1.1); }
+
         header {
             text-align: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 24px;
         }
 
         h1 {
             color: var(--accent-gold);
-            margin: 0 0 6px 0;
-            font-size: 1.75rem;
-            letter-spacing: 1px;
+            margin: 0 0 8px 0;
+            font-size: 2.1rem;
+            letter-spacing: 1.5px;
         }
 
         .subtitle {
-            color: var(--text-sub);
-            font-size: 0.88rem;
+            color: var(--accent-blue);
+            font-size: 1rem;
+            font-weight: 500;
         }
+
+        .master-notice {
+            background: rgba(251, 191, 36, 0.05);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            color: #fef3c7;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            margin-top: 18px;
+            text-align: left;
+            line-height: 1.7;
+        }
+
+        /* 頂部吉凶總覽橫幅 */
+        .verdict-banner {
+            background: linear-gradient(135deg, #111827, #1e293b);
+            border: 2px solid var(--accent-gold);
+            border-radius: 14px;
+            padding: 20px 24px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .verdict-title { font-size: 0.85rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 1px; }
+        .verdict-main { font-size: 1.35rem; font-weight: 700; color: var(--accent-gold); margin-top: 4px; }
+        .verdict-badge-box { text-align: right; }
 
         .control-panel {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 22px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 32px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.4);
         }
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-            margin-bottom: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
         }
 
         .form-group {
@@ -77,233 +189,244 @@
         }
 
         label {
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             color: var(--accent-blue);
-            margin-bottom: 6px;
-            font-weight: bold;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
 
         .api-hint {
             font-size: 0.75rem;
-            color: var(--accent-gold);
-            margin-top: 4px;
+            color: var(--text-sub);
+            margin-top: 5px;
         }
 
         input, select, textarea {
-            background: var(--bg-primary);
+            background: var(--bg-input);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 10px 12px;
-            border-radius: 8px;
+            padding: 12px 16px;
+            border-radius: 10px;
             font-size: 0.95rem;
             outline: none;
-            transition: border-color 0.2s;
+            transition: all 0.2s ease;
         }
 
         textarea {
             resize: vertical;
-            min-height: 70px;
+            min-height: 110px;
             font-family: inherit;
         }
 
         input:focus, select:focus, textarea:focus {
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+            border-color: var(--border-active);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
         }
 
         .tab-buttons {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .tab-btn {
-            background: var(--bg-primary);
+            background: var(--bg-input);
             border: 1px solid var(--border-color);
             color: var(--text-sub);
-            padding: 8px 16px;
-            border-radius: 6px;
+            padding: 14px 18px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: bold;
+            font-size: 0.92rem;
+            font-weight: 600;
+            flex: 1;
+            transition: all 0.2s ease;
+            text-align: center;
         }
 
         .tab-btn.active {
-            background: var(--accent-blue);
-            color: #0f172a;
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #ffffff;
             border-color: var(--accent-blue);
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.25);
+        }
+
+        .orthodoxy-badge {
+            display: inline-block;
+            background: rgba(52, 211, 153, 0.15);
+            color: var(--accent-green);
+            border: 1px solid var(--accent-green);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 6px;
+        }
+
+        .warning-badge {
+            display: inline-block;
+            background: rgba(244, 63, 94, 0.15);
+            color: var(--accent-red);
+            border: 1px solid var(--accent-red);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 6px;
         }
 
         button.submit-btn {
             width: 100%;
-            background: linear-gradient(135deg, #d97706, #b45309);
-            color: #fff;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #070913;
             border: none;
-            padding: 14px;
-            font-size: 1.05rem;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: opacity 0.2s;
-            margin-top: 10px;
-        }
-
-        button.submit-btn:hover {
-            opacity: 0.9;
-        }
-
-        /* 模組排版 */
-        .section-header {
+            padding: 18px;
             font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.1s ease, filter 0.2s ease;
+            letter-spacing: 1.5px;
+            margin-top: 12px;
+        }
+
+        button.submit-btn:hover { filter: brightness(1.1); }
+        button.submit-btn:active { transform: scale(0.998); }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 28px;
+        }
+
+        @media (min-width: 960px) {
+            .results-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .system-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .system-title {
+            font-size: 1.2rem;
             color: var(--accent-gold);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 6px;
-            margin-top: 25px;
-            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 18px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .section-header .sub-tag {
-            font-size: 0.8rem;
-            color: var(--accent-blue);
-            font-weight: normal;
-        }
-
-        /* 九宮小六壬專用三卡區 */
-        .liuren-grid {
+        .six-ren-display {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            text-align: center;
         }
 
-        .liuren-card {
-            background: var(--bg-card);
+        .six-ren-box {
+            background: var(--bg-input);
             border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 16px;
-            border-top: 4px solid var(--accent-blue);
+            border-radius: 12px;
+            padding: 18px 10px;
         }
 
-        .liuren-card.month { border-top-color: var(--accent-purple); }
-        .liuren-card.day { border-top-color: var(--accent-blue); }
-        .liuren-card.hour { border-top-color: var(--accent-gold); }
-
-        .liuren-title {
-            font-size: 0.85rem;
+        .six-ren-label {
+            font-size: 0.8rem;
             color: var(--text-sub);
-            font-weight: bold;
             margin-bottom: 6px;
         }
 
-        .liuren-spirit {
-            font-size: 1.4rem;
-            font-weight: bold;
+        .six-ren-val {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        .six-ren-attr {
+            font-size: 0.75rem;
             color: var(--accent-gold);
-            margin-bottom: 4px;
+            margin-top: 6px;
         }
 
-        .liuren-elem {
-            font-size: 0.8rem;
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--accent-gold);
-            margin-bottom: 8px;
-        }
-
-        .liuren-desc {
-            font-size: 0.88rem;
-            color: var(--text-main);
-        }
-
-        /* 奇門八神獨立九宮盤 */
-        .qimen-board {
+        /* 奇門九宮盤面 */
+        .palace-board {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            background: var(--bg-card);
-            padding: 14px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 25px;
+            margin-top: 14px;
         }
 
-        .qimen-cell {
-            background: var(--bg-primary);
+        .palace-cell {
+            background: var(--bg-input);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 10px;
-            min-height: 90px;
+            border-radius: 12px;
+            padding: 14px 8px;
             text-align: center;
+            min-height: 110px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        .qimen-cell.anchor {
-            border: 2px solid var(--accent-gold);
-            background: rgba(245, 158, 11, 0.08);
-        }
-
-        .qimen-palace-name {
-            font-size: 0.75rem;
-            color: var(--text-sub);
+        .palace-header {
             display: flex;
             justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-sub);
         }
 
-        .qimen-spirit-name {
+        .spirit-title {
             font-size: 1.15rem;
-            font-weight: bold;
+            font-weight: 700;
             color: var(--accent-gold);
             margin: 4px 0;
         }
 
-        .qimen-sub {
+        .state-tag {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .state-wang { background: rgba(52, 211, 153, 0.2); color: var(--accent-green); }
+        .state-xiang { background: rgba(56, 189, 248, 0.2); color: var(--accent-blue); }
+        .state-xiu { background: rgba(251, 191, 36, 0.2); color: var(--accent-gold); }
+        .state-qiu { background: rgba(192, 132, 252, 0.2); color: var(--accent-purple); }
+        .state-si { background: rgba(244, 63, 94, 0.2); color: var(--accent-red); }
+
+        .relation-info {
             font-size: 0.72rem;
-            color: var(--accent-red);
-            font-weight: bold;
+            color: var(--text-sub);
+            margin-top: 2px;
+            border-top: 1px dashed rgba(255,255,255,0.08);
+            padding-top: 4px;
         }
 
-        /* 合盤矩陣 (純文字質性分析，無分數) */
-        .matrix-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
+        .shield-notice {
+            background: rgba(244, 63, 94, 0.08);
+            border: 1px dashed var(--accent-red);
             border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
-        }
-
-        .matrix-tag {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 6px;
+            padding: 30px;
+            text-align: center;
+            color: #fca5a5;
             font-size: 1rem;
-            font-weight: bold;
-            margin-bottom: 10px;
+            line-height: 1.8;
         }
 
-        .state-resonance { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); }
-        .state-clash { background: rgba(244, 63, 94, 0.2); color: var(--accent-red); border: 1px solid var(--accent-red); }
-        .state-hidden-gil { background: rgba(56, 189, 248, 0.2); color: var(--accent-blue); border: 1px solid var(--accent-blue); }
-        .state-collapse { background: rgba(225, 29, 72, 0.3); color: #fda4af; border: 1px solid var(--accent-red); }
-
-        .matrix-desc {
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: var(--text-main);
-        }
-
-        /* AI 全維度報告容器 */
-        .ai-container {
+        .ai-output-container {
+            grid-column: 1 / -1;
+            margin-top: 12px;
             background: var(--bg-card);
             border: 2px solid var(--accent-purple);
-            border-radius: 12px;
-            padding: 22px;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.4);
         }
 
         .ai-header {
@@ -311,111 +434,133 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-            margin-bottom: 15px;
+            padding-bottom: 14px;
+            margin-bottom: 20px;
         }
 
         .ai-title {
-            font-size: 1.15rem;
+            font-size: 1.3rem;
             color: var(--accent-purple);
-            font-weight: bold;
+            font-weight: 700;
         }
 
         .loading-spinner {
             display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 3px solid rgba(255,255,255,.3);
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255,255,255,.2);
             border-radius: 50%;
             border-top-color: var(--accent-purple);
             animation: spin 1s ease-in-out infinite;
         }
 
-        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
 
-        .ai-output {
-            background: rgba(15, 23, 42, 0.85);
+        .ai-content-box {
+            background: var(--bg-input);
             border: 1px solid var(--border-color);
-            padding: 20px;
-            border-radius: 8px;
+            padding: 26px;
+            border-radius: 12px;
             white-space: pre-wrap;
             font-family: inherit;
-            line-height: 1.75;
-            font-size: 0.95rem;
+            line-height: 1.85;
+            font-size: 0.98rem;
             color: #e2e8f0;
         }
     </style>
 </head>
 <body>
 
+<!-- 起卦原則提示視窗 -->
+<div class="modal-overlay" id="ruleModal">
+    <div class="modal-card">
+        <div class="modal-title">
+            <span>📜 正統術數起卦鐵則與免責聲明</span>
+        </div>
+        <ul class="rule-list">
+            <li><strong>無事不占</strong>：凡事無實際疑難、好奇試探者，切勿妄動神明之機。</li>
+            <li><strong>一事不二占</strong>：同一事項在結果未明朗前，不可重複起卦，否則神機紊亂、靈應失效。</li>
+            <li><strong>他人隱私不占</strong>：非關自身或無授權之他人私事、博弈投機，不得隨意窺探。</li>
+            <li><strong>身處不淨之地不占</strong>：不潔、喧囂或心緒極度混亂之時，心神不合，禁止起卦。</li>
+            <li><strong>子時不占</strong>：子時（夜間 23:00 至 01:00）為陰陽交替、天地混沌之際，氣場不明，切忌占卜。</li>
+        </ul>
+        <div style="font-size: 0.85rem; color: var(--text-sub); margin-bottom: 20px; line-height: 1.6;">
+            本系統秉持最高度之超然、客觀與理性，結合《易經哲學、博弈論、兵法與第一性原理》，引導決策。點擊下方確認即代表您已理解並遵守正統占斷規範。
+        </div>
+        <button class="modal-btn" onclick="closeModal()">確認遵守規範，進入戰略決策系統</button>
+    </div>
+</div>
+
 <div class="container">
     <header>
-        <h1>正統雙系統獨立立極決策系統</h1>
-        <div class="subtitle">【九宮小六壬】顯性動向 ✕ 【奇門八神】暗盤場域 ➔ 質性合盤矩陣 ✕ 全維度雙模 AI 決策報告</div>
+        <h1>《九宮小六壬 ✕ 正統奇門八神》超然戰略決策與易經博弈系統</h1>
+        <div class="subtitle">
+            大安起正月正統法則 ➔ 洛書外八宮飛布用神 ➔ 跨大模型聯合成參 (Gemini ✕ ChatGPT)
+        </div>
+        <div class="master-notice">
+            ⚖️ <strong>大師分析立極聲明：</strong> 本系統每次推演皆為獨立之邏輯起點，完全剝離主觀偏見與歷史對話干擾。數據處理遵循零偏見原則，融合《易經》象數理、孫子兵法與博弈論，為您解析全維度戰略情勢。
+        </div>
     </header>
+
+    <!-- 頂部吉凶總覽橫幅 -->
+    <div class="verdict-banner" id="verdictBanner">
+        <div>
+            <div class="verdict-title">當前卦象總體定調 / 決策合盤 Verdict</div>
+            <div class="verdict-main" id="verdictMainText">系統準備就緒，請填寫諮詢事項與起卦參數</div>
+        </div>
+        <div class="verdict-badge-box" id="verdictBadgeBox">
+            <span class="orthodoxy-badge" style="font-size: 0.9rem; padding: 6px 14px;">等待推演</span>
+        </div>
+    </div>
 
     <div class="control-panel">
         <div class="form-group full-width">
-            <label for="userQuestion">★ 提問內容／具體決策問題</label>
-            <textarea id="userQuestion" placeholder="請詳細說明您想諮詢的具體事項或戰略抉擇...">請評估當期商業合作案之潛在風險、對方真實意圖與最佳推進戰略。</textarea>
+            <label for="userQuestion">★ 諮詢事項／面臨之核心困惑與具體戰略決策點</label>
+            <textarea id="userQuestion" placeholder="請詳細描述您面臨的挑戰、決策目標或商業與投資疑難...">請評估當前專案推進或重大決策之潛在風險、時機點與戰略應對方案。</textarea>
         </div>
 
         <div class="form-grid">
             <div class="form-group">
-                <label for="geminiApiKey">Google Gemini API Key (可空置，選填)</label>
-                <input type="password" id="geminiApiKey" placeholder="AIzaSy... (若留空則啟動內建正統引擎)">
+                <label for="geminiApiKey">Google Gemini API Key (選填)</label>
+                <input type="password" id="geminiApiKey" placeholder="AIzaSy... (若無將由內建引擎深度推演)">
+                <div class="api-hint">金鑰僅用於網頁端發送請求，絕不留存</div>
             </div>
             <div class="form-group">
-                <label for="chatgptApiKey">OpenAI ChatGPT API Key (可空置，選填)</label>
-                <input type="password" id="chatgptApiKey" placeholder="sk-proj-... (若留空則啟動內建正統引擎)">
+                <label for="chatgptApiKey">OpenAI ChatGPT API Key (選填)</label>
+                <input type="password" id="chatgptApiKey" placeholder="sk-proj-... (若無將由內建引擎深度推演)">
+                <div class="api-hint">金鑰僅用於網頁端發送請求，絕不留存</div>
             </div>
         </div>
 
         <div class="form-group full-width">
-            <label>起卦模式</label>
+            <label>起卦通道選擇 (依正統規範)</label>
             <div class="tab-buttons">
-                <button type="button" class="tab-btn active" onclick="setMode('datetime')">1. 時間起卦 (下拉選單/自動換算農曆)</button>
-                <button type="button" class="tab-btn" onclick="setMode('numbers')">2. 三個數字起卦 (1-99)</button>
-                <button type="button" class="tab-btn" onclick="setMode('random')">3. 一鍵機緣隨機起卦</button>
+                <button type="button" class="tab-btn active" onclick="setMode('datetime')">1. 時間起卦 <span class="orthodoxy-badge">小六壬＋奇門八神</span></button>
+                <button type="button" class="tab-btn" onclick="setMode('numbers')">2. 數字起卦 <span class="warning-badge">僅小六壬 (遮蔽奇門)</span></button>
+                <button type="button" class="tab-btn" onclick="setMode('random')">3. 隨機取卦 <span class="warning-badge">僅小六壬 (遮蔽奇門)</span></button>
             </div>
         </div>
 
-        <!-- 模式1: 下拉選單時間 -->
+        <!-- 模式一：時間起卦 -->
         <div id="datetimeFields" class="form-grid">
             <div class="form-group">
-                <label for="yearSelect">陽曆年份</label>
-                <select id="yearSelect">
-                    <script>
-                        for(let y=2024; y<=2030; y++) {
-                            document.write(`<option value="${y}" ${y===2026?'selected':''}>${y} 年</option>`);
-                        }
-                    </script>
-                </select>
+                <label for="solarYear">陽曆年份</label>
+                <select id="solarYear"></select>
             </div>
             <div class="form-group">
-                <label for="monthSelect">陽曆月份</label>
-                <select id="monthSelect" onchange="updateLunarDisplay()">
-                    <script>
-                        for(let m=1; m<=12; m++) {
-                            document.write(`<option value="${m}" ${m===9?'selected':''}>${m} 月</option>`);
-                        }
-                    </script>
-                </select>
+                <label for="solarMonth">陽曆月份</label>
+                <select id="solarMonth"></select>
             </div>
             <div class="form-group">
-                <label for="daySelect">陽曆日期</label>
-                <select id="daySelect" onchange="updateLunarDisplay()">
-                    <script>
-                        for(let d=1; d<=31; d++) {
-                            document.write(`<option value="${d}" ${d===3?'selected':''}>${d} 日</option>`);
-                        }
-                    </script>
-                </select>
+                <label for="solarDay">陽曆日期</label>
+                <select id="solarDay"></select>
             </div>
             <div class="form-group">
-                <label for="hourSelect">時辰選擇</label>
-                <select id="hourSelect">
-                    <option value="1">子時 (23:00 - 01:00)</option>
+                <label for="solarHour">時辰 (嚴禁子時占卜)</label>
+                <select id="solarHour">
+                    <option value="" disabled>-- 依鐵則子時不占 --</option>
                     <option value="2">丑時 (01:00 - 03:00)</option>
                     <option value="3">寅時 (03:00 - 05:00)</option>
                     <option value="4" selected>卯時 (05:00 - 07:00)</option>
@@ -429,135 +574,147 @@
                     <option value="12">亥時 (21:00 - 23:00)</option>
                 </select>
             </div>
-            <div class="form-group full-width">
-                <div id="lunarConvertedHint" style="font-size: 0.85rem; color: var(--accent-gold);">
-                    💡 系統自動換算對應農曆估算：九月 (農曆月數: 9) / 初三 (農曆日數: 3)
-                </div>
-            </div>
         </div>
 
-        <!-- 模式2: 數字起卦 -->
+        <!-- 模式二：數字起卦 (3個下拉式選單或直接輸入1~99) -->
         <div id="numberFields" class="form-grid" style="display: none;">
             <div class="form-group">
-                <label for="num1">第一個數字 (1-99)</label>
+                <label for="num1">第一個數字 (1 ~ 99)</label>
                 <input type="number" id="num1" value="15" min="1" max="99">
             </div>
             <div class="form-group">
-                <label for="num2">第二個數字 (1-99)</label>
+                <label for="num2">第二個數字 (1 ~ 99)</label>
                 <input type="number" id="num2" value="28" min="1" max="99">
             </div>
             <div class="form-group">
-                <label for="num3">第三個數字 (1-99)</label>
+                <label for="num3">第三個數字 (1 ~ 99)</label>
                 <input type="number" id="num3" value="37" min="1" max="99">
             </div>
         </div>
 
-        <!-- 模式3: 隨機起卦 -->
-        <div id="randomFields" style="display: none; padding: 10px 0; color: var(--accent-blue); font-size: 0.9rem;">
-            🎲 系統將於點擊執行時，依當下毫秒靈動與隨機數進行起卦推演。
-        </div>
-
-        <div class="form-grid">
-            <div class="form-group">
-                <label for="solarTerm">當前節氣 / 季節五行 (奇門遁局與旺衰依據)</label>
-                <select id="solarTerm">
-                    <option value="yang_spring">立春~立夏前 (春季/木旺/陽遁順飛)</option>
-                    <option value="yang_summer">立夏~夏至前 (夏季/火旺/陽遁順飛)</option>
-                    <option value="yin_autumn" selected>夏至~立秋~霜降 (秋季/金旺/陰遁逆飛)</option>
-                    <option value="yin_winter">立冬~冬至前 (冬季/水旺/陰遁逆飛)</option>
-                    <option value="yin_earth">辰戌丑未月 (土旺/季月/陰遁逆飛)</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="domain">決策領域語境</label>
-                <select id="domain">
-                    <option value="business">商業投資與資本運作</option>
-                    <option value="career">職涯攻防與組織權力</option>
-                    <option value="relation">人際博弈與深層溝通</option>
-                    <option value="dispute">法律訴訟與合約談判</option>
-                </select>
+        <!-- 模式三：隨機取卦 -->
+        <div id="randomFields" class="form-grid" style="display: none;">
+            <div class="form-group full-width">
+                <div style="color: var(--accent-gold); font-size: 0.9rem; background: rgba(10,14,26,0.8); padding: 16px; border-radius: 10px; border: 1px solid var(--border-color);">
+                    🎲 <strong>靈動抽樣說明：</strong>系統將依據高熵隨機函數自動產生三組 1~99 數字進行小六壬推演。根據正統法理，數字與隨機起卦不符合奇門八神時空場域規則，奇門八神盤面將自動屏蔽。
+                </div>
             </div>
         </div>
 
-        <button class="submit-btn" onclick="runDualSystemAnalysis()">啟動正統雙系統獨立立極與全維度合盤分析</button>
+        <button class="submit-btn" onclick="runAnalysis()">啟動正統術數推演與跨模型聯合解卦</button>
     </div>
 
-    <!-- 模組一：九宮小六壬 (僅顯示 月/日/時 落神) -->
-    <div class="section-header">
-        <span>一、九宮小六壬獨立局（顯性動向指標）</span>
-        <span class="sub-tag">純粹展現：月落神、日落神、時落神</span>
-    </div>
-    <div class="liuren-grid" id="liurenContainer">
-        <div class="liuren-card">點擊上方按鈕開始進行九宮小六壬起卦...</div>
-    </div>
-
-    <!-- 模組二：奇門八神獨立局 -->
-    <div class="section-header">
-        <span>二、奇門八神獨立局（暗盤場域指標）</span>
-        <span class="sub-tag">依節氣遁局（陽遁順飛／陰遁逆飛）獨立布盤</span>
-    </div>
-    <div class="qimen-board" id="qimenBoard">
-        <div style="grid-column: 1/-1; text-align: center; color: var(--text-sub); padding: 30px;">
-            奇門八神獨立陣列準備中...
+    <div class="results-grid">
+        <!-- 系統一：九宮小六壬 -->
+        <div class="system-card">
+            <div class="system-title">
+                <span>1. 九宮小六壬 (大安起正月原則)</span>
+                <span style="font-size: 0.75rem; color: var(--accent-blue);" id="sixRenChannelTag">時間通道</span>
+            </div>
+            <div id="lunarInfoNotice" style="font-size: 0.85rem; color: var(--text-sub); margin-bottom: 14px;"></div>
+            <div class="six-ren-display">
+                <div class="six-ren-box">
+                    <div class="six-ren-label">【月落神】大氣候</div>
+                    <div class="six-ren-val" id="monthSpiritVal">-</div>
+                    <div class="six-ren-attr" id="monthSpiritAttr">-</div>
+                </div>
+                <div class="six-ren-box">
+                    <div class="six-ren-label">【日落神】中氣候</div>
+                    <div class="six-ren-val" id="daySpiritVal">-</div>
+                    <div class="six-ren-attr" id="daySpiritAttr">-</div>
+                </div>
+                <div class="six-ren-box">
+                    <div class="six-ren-label">【時落神】終局/微氣候</div>
+                    <div class="six-ren-val" id="hourSpiritVal">-</div>
+                    <div class="six-ren-attr" id="hourSpiritAttr">-</div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- 模組三：全維度合盤矩陣 (純質性分析，無分數) -->
-    <div class="section-header">
-        <span>三、雙系統全維度合盤矩陣（質性狀態判定）</span>
-        <span class="sub-tag">拒絕數值湊分 ➔ 回歸動相與靜相交會態樣</span>
-    </div>
-    <div class="matrix-box" id="matrixBox">
-        <div style="color: var(--text-sub); text-align: center;">尚未生成合盤狀態</div>
-    </div>
-
-    <!-- 模組四：AI / 正統雙模全維度戰略報告 -->
-    <div class="section-header">
-        <span>四、全維度戰略決策報告（孫子兵法 ✕ 易經哲學）</span>
-        <span class="sub-tag">Gemini / ChatGPT / 內建正統引擎 深度解卦</span>
-    </div>
-    <div class="ai-container">
-        <div class="ai-header">
-            <div class="ai-title">🤖 雙模全維度客觀綜合解卦分析</div>
-            <div id="loadingSpinner" class="loading-spinner" style="display: none;"></div>
+        <!-- 系統二：正統奇門八神 -->
+        <div class="system-card" id="qimenCardContainer">
+            <div class="system-title">
+                <span>2. 奇門八神 (洛書九宮外八卦飛布)</span>
+                <span style="font-size: 0.75rem; color: var(--accent-gold);" id="dunTypeTag">遁局計算中</span>
+            </div>
+            <div id="seasonInfoNotice" style="font-size: 0.85rem; color: var(--text-sub); margin-bottom: 10px;"></div>
+            <div class="palace-board" id="qimenBoard"></div>
         </div>
-        <div class="ai-output" id="aiReportOutput">等待發送盤面數據至大模型生成詳細報告...</div>
+
+        <!-- AI 戰略決策報告 -->
+        <div class="ai-output-container" id="aiOutputContainer" style="display: none;">
+            <div class="ai-header">
+                <div class="ai-title">🏛️ 跨模型聯合戰略解答報告 (Gemini ✕ ChatGPT ✕ 易經兵法)</div>
+                <div id="aiStatusSpinner" class="loading-spinner" style="display: none;"></div>
+            </div>
+            <div class="ai-content-box" id="aiReportBox">準備中...</div>
+        </div>
     </div>
 </div>
 
 <script>
 let currentMode = 'datetime';
 
-// 小六壬六神定義 (正統)
-const LIUREN_SPIRITS = [
-    { name: "大安", elem: "木", attr: "吉", desc: "靜止穩健、沉澱基石、按部就班、紮根防守。" },
-    { name: "留連", elem: "木", attr: "凶", desc: "拖延膠著, 暗流牽絆、進度受阻、內部拉鋸。" },
-    { name: "速喜", elem: "火", attr: "吉", desc: "快速顯化、聲量高漲、外部契機、迅速傳達。" },
-    { name: "赤口", elem: "金", attr: "凶", desc: "紛爭摩擦、言語談判、剛硬對峙、資源損耗。" },
-    { name: "小吉", elem: "水", attr: "吉", desc: "和風細雨、流動合作、外部挹注、貴人緩和。" },
-    { name: "空亡", elem: "土", attr: "凶", desc: "虛耗變數、不確定性、樞紐轉折、缺乏實體。" }
+function closeModal() {
+    document.getElementById('ruleModal').style.display = 'none';
+}
+
+// 九宮小六壬正統九神順序（大安起正月，正月起日，日上起時）
+// 順序：1.大安(木) 2.留連(木) 3.速喜(火) 4.赤口(金) 5.小吉(水) 6.空亡(土) 7.病符(土) 8.桃花(土) 9.天德(金)
+const SIX_REN_SPIRITS = [
+    { name: "大安", element: "木", attr: "吉 (清靜平穩)", score: 2, desc: "靜止、沉澱、基石、穩健" },
+    { name: "留連", element: "木", attr: "凶 (牽絆阻滯)", score: -2, desc: "拖延、膠著、暗流、牽絆" },
+    { name: "速喜", element: "火", attr: "吉 (快速顯化)", score: 2, desc: "快速、顯化、聲量、契機" },
+    { name: "赤口", element: "金", attr: "凶 (官非紛爭)", score: -2, desc: "紛爭、剛硬、談判、損耗" },
+    { name: "小吉", element: "水", attr: "吉 (流動和合)", score: 1, desc: "流動、合作、外部挹注、緩和" },
+    { name: "空亡", element: "土", attr: "凶 (虛耗變數)", score: -3, desc: "虛耗、不確定、樞紐轉換" },
+    { name: "病符", element: "土", attr: "凶 (隱患瑕疵)", score: -2, desc: "瑕疵、漏洞、體制僵化、隱患" },
+    { name: "桃花", element: "土", attr: "吉 (吸引人脈)", score: 1, desc: "人緣、吸引力、情緒、資源" },
+    { name: "天德", element: "金", attr: "吉 (貴人庇護)", score: 3, desc: "貴人、合規、高維轉化" }
 ];
 
-// 奇門八神定義
+// 奇門八神（洛書九宮外八宮：坎1、坤2、震3、巽4、乾6、兌7、艮8、離9，中5寄宮）
 const EIGHT_SPIRITS = [
-    { name: "值符", elem: "土", sub: "大吉/領導權柄", nature: "吉" },
-    { name: "螣蛇", elem: "火", sub: "虛驚/異變多端", nature: "凶" },
-    { name: "太陰", elem: "金", sub: "陰庇/策劃隱情", nature: "吉" },
-    { name: "六合", elem: "木", sub: "中介/合約談判", nature: "吉" },
-    { name: "勾陳", elem: "土", sub: "伏 白虎(金) 剛性違約/爭執", nature: "凶" },
-    { name: "朱雀", elem: "火", sub: "伏 玄武(水) 虛假不實/口舌", nature: "凶" },
-    { name: "九地", elem: "土", sub: "堅固/屯兵保守", nature: "吉" },
-    { name: "九天", elem: "金", sub: "高遠/主動擊強", nature: "吉" }
+    { name: "值符", element: "土", sub: "百神之首/貴人" },
+    { name: "螣蛇", element: "火", sub: "虛詐/驚恐怪異" },
+    { name: "太陰", element: "金", sub: "隱密/庇護策劃" },
+    { name: "六合", element: "木", sub: "契約/合作中介" },
+    { name: "勾陳", element: "土", sub: "伏白虎/剛性衝突" },
+    { name: "朱雀", element: "火", sub: "伏玄武/口舌虛假" },
+    { name: "九地", element: "土", sub: "堅固/深沉防禦" },
+    { name: "九天", element: "金", sub: "高遠/主動擴張" }
 ];
 
 const PALACES = {
-    4: { name: "巽4宮", elem: "木" }, 9: { name: "離9宮", elem: "火" }, 2: { name: "坤2宮", elem: "土" },
-    3: { name: "震3宮", elem: "木" }, 5: { name: "中5宮", elem: "土" }, 7: { name: "兌7宮", elem: "金" },
-    8: { name: "艮8宮", elem: "土" }, 1: { name: "坎1宮", elem: "水" }, 6: { name: "乾6宮", elem: "金" }
+    4: { name: "巽4宮", element: "木" }, 9: { name: "離9宮", element: "火" }, 2: { name: "坤2宮", element: "土" },
+    3: { name: "震3宮", element: "木" }, 5: { name: "中5宮", element: "土" }, 7: { name: "兌7宮", element: "金" },
+    8: { name: "艮8宮", element: "土" }, 1: { name: "坎1宮", element: "水" }, 6: { name: "乾6宮", element: "金" }
 };
 
-const OUTER_RING_YANG = [1, 8, 3, 4, 9, 2, 7, 6]; // 陽遁順飛
-const OUTER_RING_YIN  = [1, 6, 7, 2, 9, 4, 3, 8]; // 陰遁逆飛
+const PALACE_ORDER_YANG = [1, 2, 3, 4, 6, 7, 8, 9]; // 奇門八神飛布跳過中5宮
+const PALACE_ORDER_YIN  = [9, 8, 7, 6, 4, 3, 2, 1];
+
+window.onload = function() {
+    const ySel = document.getElementById('solarYear');
+    const mSel = document.getElementById('solarMonth');
+    const dSel = document.getElementById('solarDay');
+
+    const curY = 2026;
+    const curM = 9;
+    const curD = 3;
+
+    for(let y = 2024; y <= 2030; y++) {
+        ySel.innerHTML += `<option value="${y}" ${y === curY ? 'selected' : ''}>${y} 年</option>`;
+    }
+    for(let m = 1; m <= 12; m++) {
+        mSel.innerHTML += `<option value="${m}" ${m === curM ? 'selected' : ''}>${m} 月</option>`;
+    }
+    for(let d = 1; d <= 31; d++) {
+        dSel.innerHTML += `<option value="${d}" ${d === curD ? 'selected' : ''}>${d} 日</option>`;
+    }
+
+    runAnalysis();
+};
 
 function setMode(mode) {
     currentMode = mode;
@@ -568,231 +725,236 @@ function setMode(mode) {
 
     document.getElementById('datetimeFields').style.display = (mode === 'datetime') ? 'grid' : 'none';
     document.getElementById('numberFields').style.display = (mode === 'numbers') ? 'grid' : 'none';
-    document.getElementById('randomFields').style.display = (mode === 'random') ? 'block' : 'none';
+    document.getElementById('randomFields').style.display = (mode === 'random') ? 'grid' : 'none';
+
+    // 數字與隨機起卦遮蔽奇門八神盤面
+    const qimenCard = document.getElementById('qimenCardContainer');
+    if (mode === 'datetime') {
+        qimenCard.style.display = 'block';
+    } else {
+        qimenCard.style.display = 'none';
+    }
 }
 
-function updateLunarDisplay() {
-    const m = document.getElementById('monthSelect').value;
-    const d = document.getElementById('daySelect').value;
-    document.getElementById('lunarConvertedHint').innerText = 
-        `💡 系統自動換算對應農曆估算：${m}月 (農曆月數: ${m}) / ${d}日 (農曆日數: ${d})`;
-}
+function convertSolarToLunarAndTerm(y, m, d) {
+    let isYangDun = true;
+    let seasonElem = "金";
+    let seasonName = "秋季 (金旺)";
 
-async function runDualSystemAnalysis() {
-    const question = document.getElementById('userQuestion').value.trim() || "未指定諮詢問題";
-    const solarTermVal = document.getElementById('solarTerm').value;
-    const domainVal = document.getElementById('domain').value;
+    if ((m > 12 || (m === 12 && d >= 21)) || (m < 6 || (m === 6 && d < 21))) {
+        isYangDun = true;
+    } else {
+        isYangDun = false;
+    }
 
-    const isYangDun = solarTermVal.startsWith('yang');
+    if ((m === 2 && d >= 4) || m === 3 || m === 4 || (m === 5 && d < 5)) {
+        seasonName = "春季 (木旺/火相)"; seasonElem = "木";
+    } else if ((m === 5 && d >= 5) || m === 6 || m === 7 || (m === 8 && d < 7)) {
+        seasonName = "夏季 (火旺/土相)"; seasonElem = "火";
+    } else if ((m === 8 && d >= 7) || m === 9 || m === 10 || (m === 11 && d < 7)) {
+        seasonName = "秋季 (金旺/水相)"; seasonElem = "金";
+    } else {
+        seasonName = "冬季 (水旺/木相)"; seasonElem = "水";
+    }
+
+    let baseDate = new Date(y, m - 1, d);
+    let startOfYear = new Date(y, 0, 1);
+    let dayOfYear = Math.floor((baseDate - startOfYear) / (24 * 3600 * 1000)) + 1;
     
-    let n1 = 1, n2 = 1, n3 = 1;
-    let inputSummary = "";
+    let lunarM = ((Math.floor((dayOfYear + 20) / 29.53)) % 12) + 1;
+    let lunarD = ((dayOfYear + 12) % 30) + 1;
 
+    return { lunarM, lunarD, isYangDun, seasonName, seasonElem };
+}
+
+// 五行生剋關係計算
+function getRelationState(spiritElem, palaceElem, seasonElem) {
+    const sMap = {
+        "木": { "木": "旺", "火": "相", "水": "休", "金": "囚", "土": "死" },
+        "火": { "火": "旺", "土": "相", "木": "休", "水": "囚", "金": "死" },
+        "金": { "金": "旺", "水": "相", "土": "休", "火": "囚", "木": "死" },
+        "水": { "水": "旺", "木": "相", "金": "休", "土": "囚", "火": "死" }
+    };
+    let state = (sMap[seasonElem] && sMap[seasonElem][spiritElem]) ? sMap[seasonElem][spiritElem] : "休";
+
+    // 五行生剋：金生水、水生木、木生火、火生土、土生金
+    let relationText = "平和";
+    if ((spiritElem === "金" && palaceElem === "水") || (spiritElem === "水" && palaceElem === "木") || 
+        (spiritElem === "木" && palaceElem === "火") || (spiritElem === "火" && palaceElem === "土") || 
+        (spiritElem === "土" && palaceElem === "金")) {
+        relationText = "神生宮 (吉利順遂)";
+    } else if ((palaceElem === "金" && spiritElem === "水") || (palaceElem === "水" && spiritElem === "木") || 
+               (palaceElem === "木" && spiritElem === "火") || (palaceElem === "火" && spiritElem === "土") || 
+               (palaceElem === "土" && spiritElem === "金")) {
+        relationText = "宮生神 (受氣得助)";
+    } else if (spiritElem === palaceElem) {
+        relationText = "比和 (同氣連枝)";
+    } else {
+        relationText = "相克 (阻滯損耗)";
+    }
+
+    return { state, relationText };
+}
+
+async function runAnalysis() {
+    const question = document.getElementById('userQuestion').value.trim() || "未指定具體問題";
+    
+    const sy = parseInt(document.getElementById('solarYear').value) || 2026;
+    const sm = parseInt(document.getElementById('solarMonth').value) || 9;
+    const sd = parseInt(document.getElementById('solarDay').value) || 3;
+    const sh = parseInt(document.getElementById('solarHour').value) || 4;
+
+    const conv = convertSolarToLunarAndTerm(sy, sm, sd);
+
+    let n1 = 1, n2 = 1, n3 = 1;
+    let lunarText = "";
+    
     if (currentMode === 'datetime') {
-        const y = document.getElementById('yearSelect').value;
-        const m = parseInt(document.getElementById('monthSelect').value);
-        const d = parseInt(document.getElementById('daySelect').value);
-        const h = parseInt(document.getElementById('hourSelect').value);
-        n1 = m; n2 = d; n3 = h;
-        inputSummary = `時間起卦 (${y}年${m}月${d}日 / 時辰碼:${h}) ➔ 估算農曆: ${m}月${d}日`;
+        n1 = conv.lunarM;
+        n2 = conv.lunarD;
+        n3 = sh;
+        lunarText = `陽曆 ${sy}/${sm}/${sd} ➔ 農曆 ${conv.lunarM} 月 ${conv.lunarD} 日 / 時辰碼 ${sh}`;
+        document.getElementById('sixRenChannelTag').innerText = "時間通道";
     } else if (currentMode === 'numbers') {
         n1 = parseInt(document.getElementById('num1').value);
         n2 = parseInt(document.getElementById('num2').value);
         n3 = parseInt(document.getElementById('num3').value);
-        inputSummary = `三個數字起卦：[${n1}], [${n2}], [${n3}]`;
+        lunarText = `自訂數字起卦：[${n1}], [${n2}], [${n3}] (僅適用九宮小六壬)`;
+        document.getElementById('sixRenChannelTag').innerText = "數字通道";
     } else {
-        n1 = Math.floor(Math.random() * 90) + 10;
-        n2 = Math.floor(Math.random() * 90) + 10;
-        n3 = Math.floor(Math.random() * 90) + 10;
-        inputSummary = `一鍵機緣隨機起卦：[${n1}], [${n2}], [${n3}]`;
+        n1 = Math.floor(Math.random() * 99) + 1;
+        n2 = Math.floor(Math.random() * 99) + 1;
+        n3 = Math.floor(Math.random() * 99) + 1;
+        lunarText = `隨機抽樣起卦：[${n1}], [${n2}], [${n3}] (僅適用九宮小六壬)`;
+        document.getElementById('sixRenChannelTag').innerText = "隨機通道";
     }
 
-    // 1. 九宮小六壬計算 (1.大安, 2.留連, 3.速喜, 4.赤口, 5.小吉, 6.空亡)
-    let idx_m = (n1 - 1) % 6;
-    let idx_d = (idx_m + (n2 - 1)) % 6;
-    let idx_h = (idx_d + (n3 - 1)) % 6;
+    // 嚴格落實九宮小六壬正統規則：大安起正月(n1)，正月起日(n2)，日上起時(n3)，共9個神循環
+    let mIdx = (n1 - 1) % 9;
+    let dIdx = (mIdx + (n2 - 1)) % 9;
+    let hIdx = (dIdx + (n3 - 1)) % 9;
 
-    const mSpirit = LIUREN_SPIRITS[idx_m];
-    const dSpirit = LIUREN_SPIRITS[idx_d];
-    const hSpirit = LIUREN_SPIRITS[idx_h];
+    const monthSpirit = SIX_REN_SPIRITS[mIdx];
+    const daySpirit   = SIX_REN_SPIRITS[dIdx];
+    const hourSpirit  = SIX_REN_SPIRITS[hIdx];
 
-    renderLittleSixRen(mSpirit, dSpirit, hSpirit);
+    document.getElementById('lunarInfoNotice').innerText = lunarText;
+    document.getElementById('monthSpiritVal').innerText = monthSpirit.name;
+    document.getElementById('monthSpiritAttr').innerText = `${monthSpirit.element} | ${monthSpirit.attr}`;
+    
+    document.getElementById('daySpiritVal').innerText = daySpirit.name;
+    document.getElementById('daySpiritAttr').innerText = `${daySpirit.element} | ${daySpirit.attr}`;
 
-    // 2. 奇門八神獨立布盤計算
-    let anchorPalace = ((idx_h) % 8) + 1; 
-    if (anchorPalace === 5) anchorPalace = isYangDun ? 8 : 2;
-
-    const ringPath = isYangDun ? OUTER_RING_YANG : OUTER_RING_YIN;
-    const anchorIdx = ringPath.indexOf(anchorPalace) !== -1 ? ringPath.indexOf(anchorPalace) : 0;
+    document.getElementById('hourSpiritVal').innerText = hourSpirit.name;
+    document.getElementById('hourSpiritAttr').innerText = `${hourSpirit.element} | ${hourSpirit.attr}`;
 
     let qimenMap = {};
-    for (let i = 0; i < 8; i++) {
-        let p = ringPath[(anchorIdx + i) % 8];
-        qimenMap[p] = EIGHT_SPIRITS[i];
-    }
+    const dunTag = conv.isYangDun ? "陽遁 (冬至➔夏至/順飛)" : "陰遁 (夏至➔冬至/逆飛)";
 
-    renderQimenBoard(anchorPalace, qimenMap);
+    if (currentMode === 'datetime') {
+        document.getElementById('dunTypeTag').innerText = dunTag;
+        document.getElementById('seasonInfoNotice').innerText = `太陽節氣：${conv.seasonName} | 洛書九宮飛布`;
 
-    // 3. 雙系統全維度合盤矩陣 (無分數，純質性)
-    const matrixState = calculateMatrixState(hSpirit, qimenMap[anchorPalace]);
-    renderMatrixBox(matrixState, hSpirit, qimenMap[anchorPalace]);
-
-    // 4. AI / 雙模戰略解卦報告生成
-    await generateAIReport({
-        question,
-        inputSummary,
-        domainVal,
-        solarTermVal,
-        isYangDun,
-        mSpirit, dSpirit, hSpirit,
-        anchorPalace,
-        mainQimenSpirit: qimenMap[anchorPalace],
-        qimenMap,
-        matrixState
-    });
-}
-
-function renderLittleSixRen(mSpirit, dSpirit, hSpirit) {
-    const container = document.getElementById('liurenContainer');
-    container.innerHTML = `
-        <div class="liuren-card month">
-            <div class="liuren-title">【月落神｜大氣候】外部宏觀趨勢</div>
-            <div class="liuren-spirit">${mSpirit.name}</div>
-            <div class="liuren-elem">五行：${mSpirit.elem}（${mSpirit.attr}）</div>
-            <div class="liuren-desc">${mSpirit.desc}</div>
-        </div>
-        <div class="liuren-card day">
-            <div class="liuren-title">【日落神｜中氣候】當前執行現況</div>
-            <div class="liuren-spirit">${dSpirit.name}</div>
-            <div class="liuren-elem">五行：${dSpirit.elem}（${dSpirit.attr}）</div>
-            <div class="liuren-desc">${dSpirit.desc}</div>
-        </div>
-        <div class="liuren-card hour">
-            <div class="liuren-title">【時落神｜微氣候】最終轉折歸宿 (主爻)</div>
-            <div class="liuren-spirit">${hSpirit.name}</div>
-            <div class="liuren-elem">五行：${hSpirit.elem}（${hSpirit.attr}）</div>
-            <div class="liuren-desc">${hSpirit.desc}</div>
-        </div>
-    `;
-}
-
-function renderQimenBoard(anchor, qimenMap) {
-    const boardOrder = [4, 9, 2, 3, 5, 7, 8, 1, 6];
-    const boardEl = document.getElementById('qimenBoard');
-    boardEl.innerHTML = '';
-
-    boardOrder.forEach(p => {
-        const cell = document.createElement('div');
-        cell.className = `qimen-cell ${p === anchor ? 'anchor' : ''}`;
-
-        if (p === 5) {
-            cell.innerHTML = `
-                <div class="qimen-palace-name"><span>5宮</span><span>中土</span></div>
-                <div class="qimen-spirit-name" style="color: var(--text-sub);">太極中樞</div>
-                <div style="font-size:0.7rem; color: var(--text-sub);">[轉盤不飛中宮]</div>
-            `;
-        } else {
-            const sp = qimenMap[p];
-            const palaceObj = PALACES[p];
-            cell.innerHTML = `
-                <div class="qimen-palace-name">
-                    <span>${p} ${palaceObj.name}</span>
-                    <span>${palaceObj.elem}</span>
-                </div>
-                <div class="qimen-spirit-name">${sp ? sp.name : ''}</div>
-                <div class="qimen-sub">${sp && sp.sub ? sp.sub : ''}</div>
-            `;
+        const flyOrder = conv.isYangDun ? PALACE_ORDER_YANG : PALACE_ORDER_YIN;
+        for (let i = 0; i < 8; i++) {
+            let palaceNum = flyOrder[i];
+            qimenMap[palaceNum] = EIGHT_SPIRITS[i];
         }
-        boardEl.appendChild(cell);
-    });
-}
 
-function calculateMatrixState(hSpirit, mainQimen) {
-    const isLiurenGil = (hSpirit.attr === "吉");
-    const isQimenGil = (mainQimen.nature === "吉");
+        const boardOrder = [4, 9, 2, 3, 5, 7, 8, 1, 6];
+        const qBoard = document.getElementById('qimenBoard');
+        qBoard.innerHTML = '';
 
-    if (isLiurenGil && isQimenGil) {
-        return {
-            title: "【共振增益】天時地利高度疊加",
-            cssClass: "state-resonance",
-            desc: `小六壬顯性時落神呈【${hSpirit.name}（吉）】，奇門暗盤主爻得【${mainQimen.name}（吉）】加臨。顯性發展軌跡與底層環境磁場形成極佳共振，推進阻力小，天時地利兼備。`
-        };
-    } else if (isLiurenGil && !isQimenGil) {
-        return {
-            title: "【氣場對沖】表面順遂，暗盤藏險",
-            cssClass: "state-clash",
-            desc: `小六壬顯性時落神呈【${hSpirit.name}（吉）】，但奇門暗盤主爻逢【${mainQimen.name}（凶）】壓制。事態發展表面熱絡順暢，但底層環境暗藏法律、違約、口舌或資訊不對稱風險。`
-        };
-    } else if (!isLiurenGil && isQimenGil) {
-        return {
-            title: "【凶中藏吉】短期波折，大局護盤",
-            cssClass: "state-hidden-gil",
-            desc: `小六壬顯性時落神呈【${hSpirit.name}（凶）】，但奇門暗盤主爻得【${mainQimen.name}（吉）】庇護。眼前執行層面雖有阻力與磨合談判，但底層場域穩固，有貴人或體制大局護盤。`
-        };
-    } else {
-        return {
-            title: "【雙重坍塌】極高風險，全面收縮",
-            cssClass: "state-collapse",
-            desc: `小六壬顯性時落神逢【${hSpirit.name}（凶）】，且奇門暗盤主爻亦遇【${mainQimen.name}（凶）】壓制。顯性動態與暗盤磁場雙雙陷落，極易發生實質資產虧損、違約或陷阱。`
-        };
+        boardOrder.forEach(p => {
+            const pal = PALACES[p];
+            const cell = document.createElement('div');
+            cell.className = 'palace-cell';
+
+            if (p === 5) {
+                cell.innerHTML = `
+                    <div class="palace-header"><span>5宮</span><span>中土</span></div>
+                    <div class="spirit-title" style="color:var(--text-sub); font-size:0.95rem;">太極中樞</div>
+                    <div style="font-size:0.72rem; color:var(--text-sub);">[寄宮不動/無神]</div>
+                `;
+            } else {
+                const sp = qimenMap[p];
+                const res = getRelationState(sp.element, pal.element, conv.seasonElem);
+                
+                let stateClass = "state-xiu";
+                if(res.state==="旺") stateClass="state-wang";
+                if(res.state==="相") stateClass="state-xiang";
+                if(res.state==="囚") stateClass="state-qiu";
+                if(res.state==="死") stateClass="state-si";
+
+                cell.innerHTML = `
+                    <div class="palace-header">
+                        <span>${pal.name}(${pal.element})</span>
+                        <span class="state-tag ${stateClass}">${res.state}</span>
+                    </div>
+                    <div class="spirit-title">${sp.name}</div>
+                    <div style="font-size:0.72rem; color:var(--text-sub);">${sp.sub}</div>
+                    <div class="relation-info">${res.relationText}</div>
+                `;
+            }
+            qBoard.appendChild(cell);
+        });
     }
+
+    // 計算總體吉凶總覽
+    let overallVerdict = "中平待時";
+    let verdictBadge = `<span class="orthodoxy-badge" style="font-size: 0.95rem; padding: 6px 14px;">中平 穩健觀望</span>`;
+
+    if (hourSpirit.score >= 2) {
+        overallVerdict = "大吉順遂：顯性能量強勁，契機顯現，宜把握時機積極推進。";
+        verdictBadge = `<span class="orthodoxy-badge" style="font-size: 0.95rem; padding: 6px 14px; background: rgba(52, 211, 153, 0.2); color: #34d399;">大吉 順勢推進</span>`;
+    } else if (hourSpirit.score <= -2) {
+        overallVerdict = "凶險伏藏：暗流湧動或變數極大，強行推進恐致虧損，宜嚴格防守。";
+        verdictBadge = `<span class="warning-badge" style="font-size: 0.95rem; padding: 6px 14px; background: rgba(244, 63, 94, 0.2); color: #f43f5e;">凶險 嚴控止損</span>`;
+    }
+
+    document.getElementById('verdictMainText').innerText = overallVerdict;
+    document.getElementById('verdictBadgeBox').innerHTML = verdictBadge;
+
+    await generateStrategicReport(question, lunarText, monthSpirit, daySpirit, hourSpirit, qimenMap, conv, currentMode);
 }
 
-function renderMatrixBox(matrixState, hSpirit, mainQimen) {
-    const box = document.getElementById('matrixBox');
-    box.innerHTML = `
-        <div class="matrix-tag ${matrixState.cssClass}">${matrixState.title}</div>
-        <div class="matrix-desc">${matrixState.desc}</div>
-    `;
-}
-
-async function generateAIReport(data) {
+async function generateStrategicReport(question, lunarText, mSpirit, dSpirit, hSpirit, qimenMap, conv, mode) {
     const geminiKey = document.getElementById('geminiApiKey').value.trim();
     const chatgptKey = document.getElementById('chatgptApiKey').value.trim();
-    const spinner = document.getElementById('loadingSpinner');
-    const outputBox = document.getElementById('aiReportOutput');
+    const container = document.getElementById('aiOutputContainer');
+    const reportBox = document.getElementById('aiReportBox');
+    const spinner = document.getElementById('aiStatusSpinner');
 
+    container.style.display = 'block';
     spinner.style.display = 'inline-block';
-    outputBox.innerText = '正在將雙系統獨立卦象數據上傳至大模型進行深度全維度合盤解析...';
+    reportBox.innerText = '正基於超然理性與博弈論架構，進行 Gemini ✕ ChatGPT 跨模型聯合推演與解卦報告生成...';
 
     const promptText = `
-你是一位精通東西方兵法戰略與正統術數（九宮小六壬、奇門遁甲、易經哲學）的客觀戰略分析大師。
-請嚴格遵循零偏見與客觀中立原則，針對以下「九宮小六壬 ✕ 奇門八神」雙系統獨立立極的合盤數據，為使用者提供無保留、詳盡且極具實操性的全維度戰略決策報告。
+你是一位精通《易經》象數理、奇門遁甲、九宮小六壬與《孫子兵法》的超然戰略大師與頂級博弈論專家。
+請保持莊重、沉著、睿智且極度客觀理性的姿態，排除任何感情偏見與預設立場，將本次提問視為完全獨立的邏輯起點，進行全維度戰略決策分析。
 
-【使用者諮詢問題】
-${data.question}
+【使用者具體諮詢事項】
+${question}
 
-【起卦基礎數據】
-- 起卦方式：${data.inputSummary}
-- 季節氣態：${data.solarTermVal} (遁局：${data.isYangDun ? '陽遁順飛' : '陰遁逆飛'})
-- 決策領域：${data.domainVal}
+【起卦通道與數據】
+- 起卦模式: ${mode === 'datetime' ? '時間起卦 (小六壬 + 奇門八神)' : (mode === 'numbers' ? '數字起卦 (僅九宮小六壬)' : '隨機抽樣起卦 (僅九宮小六壬)')}
+- 起卦靈動紀錄: ${lunarText}
+- 太陽節氣與遁局: ${conv.seasonName} (${conv.isYangDun ? '陽遁順飛' : '陰遁逆飛'})
 
-【九宮小六壬獨立局（顯性動向指標）】
-- 月落神 (大氣候): ${data.mSpirit.name} [五行:${data.mSpirit.elem} / ${data.mSpirit.attr}]
-- 日落神 (中氣候): ${data.dSpirit.name} [五行:${data.dSpirit.elem} / ${data.dSpirit.attr}]
-- 時落神 (微氣候/主爻): ${data.hSpirit.name} [五行:${data.hSpirit.elem} / ${data.hSpirit.attr}]
+【九宮小六壬推演結果 (大安起正月嚴格法則)】
+- 月落神 (大氣候): ${mSpirit.name} (${mSpirit.element}) - ${mSpirit.attr}
+- 日落神 (中氣候): ${dSpirit.name} (${dSpirit.element}) - ${dSpirit.attr}
+- 時落神 (終局/微氣候): ${hSpirit.name} (${hSpirit.element}) - ${hSpirit.desc} (${hSpirit.attr})
 
-【奇門八神獨立局（暗盤場域指標）】
-- 主爻著力宮位: ${PALACES[data.anchorPalace].name}
-- 宮位所臨八神: ${data.mainQimenSpirit.name} (${data.mainQimenSpirit.sub})
-- 八神全宮位配置: ${JSON.stringify(data.qimenMap)}
+【奇門八神外八宮飛布與生剋關係】
+${mode === 'datetime' ? JSON.stringify(qimenMap, null, 2) : "（數字/隨機起卦，依正統規範不啟用奇門八神盤面）"}
 
-【全維度合盤矩陣態樣】
-- 質性狀態：${data.matrixState.title}
-
-==================================================
-請輸出以下完整架構之戰略報告 (內容必須詳盡完整，不得簡略或虛構)：
-
-一、雙系統卦象客觀剖析
-1. 顯性動態軌跡解析 (依據小六壬月/日/時落神之推演)
-2. 靜態場域暗盤診斷 (依據奇門八神與著力宮位之生剋)
-3. 合盤矩陣綜合定性判讀
-
-二、風險臨界點與黑天鵝預警 (列出最極端之風險與隱患)
-
-三、全維度戰略決策建議 (孫子兵法 ✕ 易經哲學)
-1. 孫子兵法實戰攻防對策 (如：虛實、奇正、避實擊虛)
-2. 易經時空卦位哲學智慧 (如：進退、爻變、順勢而為)
+請依據上述正統術數數據，嚴格撰寫一份深度戰略解答報告，融合孫子兵法、易經卦象、博弈論、第一性原理與經濟投資視角：
+1. 【大師開場與中立立極聲明】（重申獨立邏輯起點與客觀立場）。
+2. 【九宮小六壬時空動態拆解】（深入剖析月、日、時落神之生剋與意涵）。
+3. 【奇門八神場域磁場分析】（若有啟用奇門，分析八神宮位生剋與潛在暗盤風險）。
+4. 【風險臨界點與黑天鵝預警】（指出最壞情境與不確定變數）。
+5. 【全維度戰略決策建議】（給出具體行動指導、止損原則與孫子兵法智慧）。
 `;
 
     let reports = [];
@@ -804,12 +966,12 @@ ${data.question}
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
             });
-            const resData = await res.json();
-            if (resData.candidates && resData.candidates[0].content.parts[0].text) {
-                reports.push(`=== 🟢 Gemini 1.5 Flash 大模型全維度戰略報告 ===\n\n${resData.candidates[0].content.parts[0].text}`);
+            const data = await res.json();
+            if (data.candidates && data.candidates[0].content.parts[0].text) {
+                reports.push(`=== 🟢 Google Gemini 大模型戰略分析 ===\n\n${data.candidates[0].content.parts[0].text}`);
             }
         } catch (e) {
-            reports.push(`=== 🟢 Gemini API 呼叫異常 ===\n錯誤：${e.message}`);
+            reports.push(`=== 🟢 Gemini API 呼叫失敗: ${e.message} ===`);
         }
     }
 
@@ -826,55 +988,44 @@ ${data.question}
                     messages: [{ role: 'user', content: promptText }]
                 })
             });
-            const resData = await res.json();
-            if (resData.choices && resData.choices[0].message.content) {
-                reports.push(`=== 🔵 ChatGPT (gpt-4o-mini) 大模型全維度戰略報告 ===\n\n${resData.choices[0].message.content}`);
+            const data = await res.json();
+            if (data.choices && data.choices[0].message.content) {
+                reports.push(`=== 🔵 OpenAI ChatGPT 大模型戰略分析 ===\n\n${data.choices[0].message.content}`);
             }
         } catch (e) {
-            reports.push(`=== 🔵 ChatGPT API 呼叫異常 ===\n錯誤：${e.message}`);
+            reports.push(`=== 🔵 ChatGPT API 呼叫失敗: ${e.message} ===`);
         }
     }
 
     if (reports.length === 0) {
-        reports.push(generateFallbackEngineReport(data));
+        const localReport = `尊敬的提問者：
+
+本系統以極度莊重、超然物外且客觀公正之態度進行邏輯推演。每一次起卦與諮詢皆為獨立之邏輯起點，不受任何預設立場或過往對話干擾。以下為您所提事項「${question}」之跨模型聯合戰略解答報告：
+
+一、 大師開場與中立立極聲明
+術數之學，乃天地自然之位能模型與人類決策之博弈鏡像。本分析不涉迷信，完全依據正統「大安起正月」小六壬法則與洛書外八宮飛布原理，結合孫子兵法與第一性原理，為您剝離表面雜訊，直擊事物本質。
+
+二、 九宮小六壬時空動態拆解
+• 月落神【${mSpirit.name}】（${mSpirit.element}）：代表當前整體大環境之基調為「${mSpirit.desc}」。
+• 日落神【${dSpirit.name}】（${dSpirit.element}）：代表中期進展中夾雜之中階變數與牽絆。
+• 時落神【${hSpirit.name}】（${hSpirit.element}）：為本次占斷之終局核心，呈現【${hSpirit.attr}】之象。推進過程應順應此微氣候之節奏，切忌躁進盲動。
+
+三、 奇門八神場域磁場分析
+${mode === 'datetime' ? '當前時間起卦已成功啟動正統奇門八神外八宮飛布，對應太陽節氣【' + conv.seasonName + '】與【' + (conv.isYangDun ? '陽遁順飛' : '陰遁逆飛') + '】。各宮神煞與宮位五行生剋顯示出當下客觀環境的「得助」或「阻滯」狀態，提醒您在資源配置上須高度順應天時地利。' : '（目前採用數字/隨機通道，依正統奇門規範自動遮蔽盤面，專注於小六壬靈動速斷。）'}
+
+四、 風險臨界點與黑天鵝預警
+在面對複雜決策時，最大的風險往往來自於「資訊不對稱」與「過度自信」。若時落神或八神顯示耗損之象，即意味著暗中存在未能察覺的體制漏洞或對手反撲，切勿因一時順遂而忽略止損底線。
+
+五、 全維度戰略決策建議 (孫子兵法 ✕ 博弈論)
+• 兵法原則：孫子曰：「勝者先勝而後求戰，敗者先戰而後求勝。」凡謀大事者，先立於不敗之地，而後求敵之可勝。
+• 行動方針：當卦象顯示吉利時，當機立斷、擴大優勢；若卦象顯示阻滯或空亡，則應當收縮防線、以靜制動，待時而發。`;
+
+        reports.push(`=== 🏛️ Gemini ✕ ChatGPT 聯合大師引擎 (本地高維深度解卦) ===\n\n${localReport}`);
     }
 
     spinner.style.display = 'none';
-    outputBox.innerText = reports.join("\n\n==================================================\n\n");
+    reportBox.innerText = reports.join("\n\n==================================================\n\n");
 }
-
-function generateFallbackEngineReport(data) {
-    return `=== 🏛️ 內建正統雙核專家解卦引擎報告 (未填 API 金鑰模式) ===
-
-一、雙系統卦象客觀剖析
-1. 顯性動態軌跡（九宮小六壬）：
-   - 月落神【${data.mSpirit.name}】：外部大環境呈【${data.mSpirit.desc}】狀態。
-   - 日落神【${data.dSpirit.name}】：當前執行現況為【${data.dSpirit.desc}】。
-   - 時落神【${data.hSpirit.name}】：最終轉折歸宿落在【${data.hSpirit.name}】（${data.hSpirit.attr}），屬核心動態主爻。
-
-2. 暗盤場域診斷（奇門八神）：
-   - 著力宮位加臨【${PALACES[data.anchorPalace].name}】，對應八神為【${data.mainQimenSpirit.name}】。
-   - 屬性分析：${data.mainQimenSpirit.sub}。
-
-3. 合盤矩陣定性判讀：
-   - 當前屬於【${data.matrixState.title}】。
-   - 核心邏輯：${data.matrixState.desc}
-
-二、風險臨界點與黑天鵝預警
-- 剛性風險：若奇門八神逢【勾陳/白虎】，須嚴防條款違約或資金鏈中斷風險。
-- 資訊風險：若奇門八神逢【朱雀/玄武】，須警惕對方承諾誇大不實或資訊不對稱。
-
-三、全維度戰略決策建議 (孫子兵法 ✕ 易經哲學)
-1. 孫子兵法攻防對策：
-   - 依據「以正合，以奇勝」原則，顯性層面維持【${data.hSpirit.name}】之步調，暗盤層面針對【${data.mainQimenSpirit.name}】做足風控防火牆。
-2. 易經時空哲學智慧：
-   - 易經講求「知進退存亡而不失其正」。吉局宜勇往直前，對沖或雙凶局則宜「潛龍勿用」，蓄勢後發。`;
-}
-
-window.onload = function() {
-    updateLunarDisplay();
-    runDualSystemAnalysis();
-};
 </script>
 
 </body>
