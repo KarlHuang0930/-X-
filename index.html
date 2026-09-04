@@ -661,7 +661,7 @@
                 </div>
             </div>
 
-            <div class="section-title" style="margin-top: 15px;">所問具體事項</div>
+            <div class="section-title" style="margin-top: 15px;">所問具體事項(敘述越具體，解答越詳細)</div>
             <textarea id="user-question" class="question-input" placeholder="請詳細記述您目前面臨之困境、決策瓶頸或具體欲求解答之事，意念越專一，卦象越明確..."></textarea>
 
             <button class="divine-btn" onclick="executeDivination()">啟動太虛神機推演</button>
@@ -703,8 +703,8 @@
             <!-- 深度推演報告 -->
             <div class="report-card">
                 <div class="report-header-flex">
-                    <div class="section-title" style="margin-bottom: 0;">周易天機與全維度破局推演報告</div>
-                    <button id="copy-prompt-btn" class="copy-prompt-btn" style="display:none;" onclick="copyPayloadPrompt()">複製天機盤面密碼</button>
+                    <div class="section-title" style="margin-bottom: 0;">合盤分析建議與決策</div>
+                    <button id="copy-prompt-btn" class="copy-prompt-btn" style="display:none;" onclick="copyPayloadPrompt()">複製盤面</button>
                 </div>
                 <div id="report-content" class="report-content">請於左側輸入具體事項並啟動推演。本系統將嚴格遵循正統易術規則，並融匯《周易哲學、博弈論、鬼谷縱橫術、第一性原理、兵法戰術與心理學》進行全鏈路客觀推演。</div>
             </div>
@@ -983,7 +983,7 @@
 
         function renderXiaoLiuRenDrops(mp, dp, hp, m, d, h) {
             const container = document.getElementById('xiaoliuren-container');
-            document.getElementById('xiaoliuren-meta').textContent = `數理: 月${m} 日${d} 時辰${h}`;
+            document.getElementById('xiaoliuren-meta').textContent = `農曆: 月${m} 日${d} 時辰${h}`;
 
             container.innerHTML = `
                 <div class="drop-card">
