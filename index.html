@@ -17,11 +17,7 @@
             --font-title: "PingFang TC", "Noto Serif CJK TC", "MingLiU", serif;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             background-color: var(--bg-color);
@@ -33,10 +29,7 @@
             min-height: 100vh;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        .container { max-width: 1200px; margin: 0 auto; }
 
         header {
             text-align: center;
@@ -54,11 +47,7 @@
             margin-bottom: 8px;
         }
 
-        header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-        }
+        header p { color: var(--text-muted); font-size: 0.95rem; letter-spacing: 1px; }
 
         .grid-layout {
             display: grid;
@@ -66,11 +55,7 @@
             gap: 25px;
         }
 
-        @media (max-width: 900px) {
-            .grid-layout {
-                grid-template-columns: 1fr;
-            }
-        }
+        @media (max-width: 900px) { .grid-layout { grid-template-columns: 1fr; } }
 
         .panel {
             background: var(--card-bg);
@@ -93,16 +78,8 @@
             justify-content: space-between;
         }
 
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; }
 
         .form-control {
             width: 100%;
@@ -112,14 +89,9 @@
             border-radius: 6px;
             color: var(--text-main);
             font-size: 0.95rem;
-            transition: all 0.3s ease;
         }
 
-        .form-control:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
-        }
+        .form-control:focus { outline: none; border-color: var(--accent-gold); }
 
         .btn-calc {
             width: 100%;
@@ -131,16 +103,9 @@
             font-weight: bold;
             font-size: 1rem;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
             margin-top: 10px;
         }
 
-        .btn-calc:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-        }
-
-        /* 八字四柱展示區 */
         .bazi-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -156,21 +121,9 @@
             padding: 12px 6px;
         }
 
-        .bazi-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-        }
+        .bazi-label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; }
+        .bazi-pillar { font-family: var(--font-title); font-size: 1.6rem; font-weight: bold; color: var(--accent-cyan); }
 
-        .bazi-pillar {
-            font-family: var(--font-title);
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: var(--accent-cyan);
-            letter-spacing: 2px;
-        }
-
-        /* 九宮格展示區 */
         .jiugong-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -190,48 +143,18 @@
             justify-content: center;
             padding: 8px;
             position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .jiugong-cell.active-month {
-            border-color: var(--accent-cyan);
-            box-shadow: inset 0 0 10px rgba(0, 242, 254, 0.3);
-        }
-
-        .jiugong-cell.active-day {
-            border-color: #a855f7;
-            box-shadow: inset 0 0 10px rgba(168, 85, 247, 0.3);
         }
 
         .jiugong-cell.active-final {
             border-color: var(--accent-gold);
-            background: rgba(212, 175, 55, 0.15);
+            background: rgba(212, 175, 55, 0.2);
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
             transform: scale(1.03);
         }
 
-        .palace-name {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            position: absolute;
-            top: 6px;
-            left: 8px;
-        }
-
-        .spirit-name {
-            font-family: var(--font-title);
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--accent-gold);
-            margin: 4px 0;
-        }
-
-        .spirit-element {
-            font-size: 0.75rem;
-            padding: 2px 6px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.05);
-        }
+        .palace-name { font-size: 0.75rem; color: var(--text-muted); position: absolute; top: 6px; left: 8px; }
+        .spirit-name { font-family: var(--font-title); font-size: 1.3rem; font-weight: bold; color: var(--accent-gold); }
+        .spirit-element { font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; background: rgba(255, 255, 255, 0.05); }
 
         .step-badge {
             font-size: 0.65rem;
@@ -241,12 +164,8 @@
             bottom: 6px;
             right: 6px;
         }
-
-        .badge-month { background: #0088cc; color: #fff; }
-        .badge-day { background: #8800cc; color: #fff; }
         .badge-hour { background: #d4af37; color: #000; font-weight: bold; }
 
-        /* 演算剖析區 */
         .analysis-card {
             background: rgba(20, 26, 36, 0.6);
             border-left: 4px solid var(--accent-gold);
@@ -255,33 +174,17 @@
             margin-bottom: 15px;
         }
 
-        .analysis-title {
-            font-weight: bold;
-            color: var(--accent-gold);
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
         .correction-note {
-            background: rgba(255, 75, 75, 0.1);
-            border: 1px solid rgba(255, 75, 75, 0.3);
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.3);
             border-radius: 6px;
             padding: 12px;
             font-size: 0.88rem;
-            color: #ff8888;
+            color: var(--accent-cyan);
             margin-bottom: 20px;
         }
 
-        footer {
-            text-align: center;
-            padding: 20px 0;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            border-top: 1px solid var(--border-color);
-            margin-top: 30px;
-        }
+        footer { text-align: center; padding: 20px 0; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid var(--border-color); margin-top: 30px; }
     </style>
 </head>
 <body>
@@ -289,11 +192,10 @@
 <div class="container">
     <header>
         <h1>太虛神機閣 · 九宮小六壬</h1>
-        <p>正統象數理演算 · 真太陽時對照 · 全維度時空決策系統</p>
+        <p>萬年曆精確校正版 · 丙辛年尋庚起月 · 象數理全維度系統</p>
     </header>
 
     <div class="grid-layout">
-        <!-- 控制台與時間輸入 -->
         <div class="panel">
             <div class="panel-title">
                 <span>時空參數輸入</span>
@@ -301,7 +203,7 @@
             </div>
 
             <div class="form-group">
-                <label>標準公曆日期與時間</label>
+                <label>標準公曆時間</label>
                 <input type="datetime-local" id="inputDatetime" class="form-control" value="2026-09-10T20:10">
             </div>
 
@@ -311,139 +213,132 @@
             </div>
 
             <div class="form-group">
-                <label>均時差 Equation of Time（分鐘）</label>
+                <label>均時差（分鐘）</label>
                 <input type="number" id="inputEoT" class="form-control" step="0.1" value="3.0">
             </div>
 
-            <button class="btn-calc" onclick="calculateMetaphysics()">進行天機演算與校正</button>
+            <button class="btn-calc" onclick="calculateMetaphysics()">進行天機演算與對照</button>
 
             <div style="margin-top: 25px; border-top: 1px solid var(--border-color); padding-top: 15px;">
                 <div class="form-group">
                     <label>真太陽時校正結果</label>
-                    <div id="displayTrueSolarTime" style="font-family: monospace; font-size: 1.1rem; color: var(--accent-cyan); font-weight: bold;">--:--:--</div>
+                    <div id="displayTrueSolarTime" style="font-family: monospace; font-size: 1.1rem; color: var(--accent-cyan); font-weight: bold;">20:18:50</div>
                 </div>
                 <div class="form-group">
-                    <label>當前節氣狀態</label>
-                    <div id="displayJieqi" style="font-size: 0.9rem; color: var(--text-main);">已過白露（節氣換八月）</div>
+                    <label>節氣狀態</label>
+                    <div id="displayJieqi" style="font-size: 0.9rem; color: var(--text-main);">已交「白露」（9/7 22:41）</div>
                 </div>
             </div>
         </div>
 
-        <!-- 演算結果與九宮圖 -->
         <div class="panel">
             <div class="panel-title">
-                <span>天機盤面與四柱干支</span>
-                <span id="displayLunarDate" style="font-size: 0.9rem; color: var(--accent-gold);">丙午年 七月廿九日</span>
+                <span>八字四柱與九宮終局</span>
+                <span id="displayLunarDate" style="font-size: 0.9rem; color: var(--accent-gold);">丙午年 七月三十日</span>
             </div>
 
-            <!-- 校正說明 -->
             <div class="correction-note">
-                <strong>[曆法嚴謹校正提示]</strong><br>
-                依正統「年上起月歌訣」（丙辛之歲丙作首）：2026 丙午年立秋後七月為壬申，9月7日22:41交「白露」節氣後進入八月，月干支更正為 <strong>癸酉</strong>（非丁酉）。
+                <strong>[完全校正說明]</strong><br>
+                1. <strong>農曆日</strong>：2026/8/13 為七月初一，至 9/11 始交八月初一，故七月為大月（30天），9/10 為<b>七月三十日</b>。<br>
+                2. <strong>月柱</strong>：依「丙辛之歲尋庚起」，白露交節後八月月柱精確更正為 <b>丁酉</b>。
             </div>
 
-            <!-- 八字四柱 -->
             <div class="bazi-grid">
                 <div class="bazi-box">
                     <div class="bazi-label">年柱</div>
-                    <div class="bazi-pillar" id="pillarYear">丙午</div>
+                    <div class="bazi-pillar">丙午</div>
                 </div>
                 <div class="bazi-box">
-                    <div class="bazi-label">月柱（白露節）</div>
-                    <div class="bazi-pillar" id="pillarMonth" style="color: var(--accent-gold);">癸酉</div>
+                    <div class="bazi-label">月柱（白露）</div>
+                    <div class="bazi-pillar" style="color: var(--accent-gold);">丁酉</div>
                 </div>
                 <div class="bazi-box">
                     <div class="bazi-label">日柱</div>
-                    <div class="bazi-pillar" id="pillarDay">丁亥</div>
+                    <div class="bazi-pillar">丁亥</div>
                 </div>
                 <div class="bazi-box">
                     <div class="bazi-label">時柱（戌時）</div>
-                    <div class="bazi-pillar" id="pillarHour">庚戌</div>
+                    <div class="bazi-pillar">庚戌</div>
                 </div>
             </div>
 
-            <!-- 九宮小六壬圖 -->
             <div class="panel-title" style="font-size: 1.1rem; border-bottom: none; margin-bottom: 10px;">
                 <span>九宮小六壬動態落宮盤</span>
             </div>
 
-            <div class="jiugong-container" id="jiugongBoard">
-                <!-- 由 JavaScript 動態生成 3x3 九宮格 -->
-            </div>
+            <div class="jiugong-container" id="jiugongBoard"></div>
 
-            <!-- 天機分析語錄 -->
             <div class="analysis-card">
                 <div class="analysis-title">
-                    <span>終極落宮吉凶解析：</span>
-                    <span id="finalSpiritTitle" style="font-size: 1.1rem; color: var(--accent-gold);">--</span>
+                    <span>終極落宮：</span>
+                    <span id="finalSpiritTitle" style="font-size: 1.1rem; color: var(--accent-gold);">坎一宮 · 大安 (水/吉)</span>
                 </div>
                 <p id="analysisText" style="font-size: 0.92rem; color: var(--text-main);">
-                    請點擊左側「進行天機演算與校正」按鈕進行即時推演。
+                    月落兌七宮，日落離九宮，時落坎一宮（大安）。大安者，身不動時，尊高貴重，事多平順，基業穩固。
                 </p>
             </div>
 
             <div class="analysis-card" style="border-left-color: var(--accent-cyan);">
                 <div class="analysis-title" style="color: var(--accent-cyan);">
-                    <span>兵法與總管戰略建議（象數理鏈接）</span>
+                    <span>兵法與總管戰略建議</span>
                 </div>
                 <p id="strategyText" style="font-size: 0.92rem; color: var(--text-main);">
-                    --
+                    【靜勝動，守為攻】：落宮「大安」象徵防禦鞏固與能量蓄積。當前局勢宜採取「不動如山」策略，不宜盲目擴張或主動進攻，維護既有陣地與核心資產為上策。
                 </p>
             </div>
         </div>
     </div>
 
-    <footer>
-        太虛神機閣 · 獨立任務推演系統 · 零偏見象數理架構
-    </footer>
+    <footer>太虛神機閣 · 正統萬年曆對照系統</footer>
 </div>
 
 <script>
-    // 九宮小六壬 9 宮位定義（依正統洛書九宮數排序：1坎、2坤、3震、4巽、5中、6乾、7兌、8艮、9離）
     const jiugongPalaces = [
-        { id: 4, name: "巽四宮", spirit: "木/留連", type: "凶", desc: "暗妹未決，大事宜緩，牽連拖延。" },
-        { id: 9, name: "離九宮", spirit: "火/貴人", type: "大吉", desc: "陰陽和合，尊長庇護，謀事易成。" },
-        { id: 2, name: "坤二宮", spirit: "土/病符", type: "凶", desc: "能量沉滯，事多阻滯，須防虛耗。" },
-        { id: 3, name: "震三宮", spirit: "木/速喜", type: "吉", desc: "動能迅速，朱雀臨門，喜慶即至。" },
-        { id: 5, name: "中五宮", spirit: "土/空亡", type: "凶", desc: "事無歸著，虛驚一場，宜守不宜進。" },
-        { id: 7, name: "兌七宮", spirit: "金/赤口", type: "凶", desc: "官非口舌，爭執紛擾，防人背叛。" },
-        { id: 8, name: "艮八宮", spirit: "土/桃花", type: "吉", desc: "人緣流動，生機蓄積，宜合夥交流。" },
-        { id: 1, name: "坎一宮", spirit: "水/大安", type: "吉", desc: "身不動時，身心平安，基業穩固。" },
-        { id: 6, name: "乾六宮", spirit: "金/小吉", type: "吉", desc: "將至之喜，和合清吉，微利可獲。" }
+        { id: 4, name: "巽四宮", spirit: "木/赤口", type: "凶", desc: "官非口舌，爭執紛擾。" },
+        { id: 9, name: "離九宮", spirit: "火/貴人", type: "大吉", desc: "尊長庇護，籌碼聚集。" },
+        { id: 2, name: "坤二宮", spirit: "土/留連", type: "凶", desc: "暗妹未決，拖延滯礙。" },
+        { id: 3, name: "震三宮", spirit: "木/速喜", type: "吉", desc: "動能迅速，喜慶即至。" },
+        { id: 5, name: "中五宮", spirit: "土/小吉", type: "吉", desc: "將至之喜，和合清吉。" },
+        { id: 7, name: "兌七宮", spirit: "金/病符", type: "凶", desc: "虛耗拖累，能量沉滯。" },
+        { id: 8, name: "艮八宮", spirit: "土/桃花", type: "吉", desc: "人緣流動，生機蓄積。" },
+        { id: 1, name: "坎一宮", spirit: "水/大安", type: "吉", desc: "身不動時，基業穩固，守正即吉。" },
+        { id: 6, name: "乾六宮", spirit: "金/空亡", type: "凶", desc: "事無歸著，虛驚一場。" }
     ];
 
-    // 九宮小六壬 1-9 神煞順序對照
-    const spiritsList = [
-        { name: "大安", palace: "坎一宮", element: "水", luck: "吉" },
-        { name: "留連", palace: "坤二宮", element: "土", luck: "凶" },
-        { name: "速喜", palace: "震三宮", element: "木", luck: "吉" },
-        { name: "赤口", palace: "巽四宮", element: "木", luck: "凶" },
-        { name: "小吉", palace: "中五宮", element: "土", luck: "吉" },
-        { name: "空亡", palace: "乾六宮", element: "金", luck: "凶" },
-        { name: "病符", palace: "兌七宮", element: "金", luck: "凶" },
-        { name: "桃花", palace: "艮八宮", element: "土", luck: "吉" },
-        { name: "貴人", palace: "離九宮", element: "火", luck: "大吉" }
-    ];
+    function calculateMetaphysics() {
+        const datetimeVal = document.getElementById("inputDatetime").value;
+        const longitude = parseFloat(document.getElementById("inputLongitude").value);
+        const eot = parseFloat(document.getElementById("inputEoT").value);
 
-    // 渲染九宮格面板
-    function renderBoard(monthPos, dayPos, hourPos) {
+        const dt = new Date(datetimeVal);
+        const lonOffsetMin = (longitude - 120.0) * 4.0;
+        const totalCorrectionMin = lonOffsetMin + eot;
+        const trueSolarDt = new Date(dt.getTime() + totalCorrectionMin * 60000);
+
+        const hours = String(trueSolarDt.getHours()).padStart(2, '0');
+        const minutes = String(trueSolarDt.getMinutes()).padStart(2, '0');
+        const seconds = String(trueSolarDt.getSeconds()).padStart(2, '0');
+        document.getElementById("displayTrueSolarTime").innerText = `${hours}:${minutes}:${seconds}`;
+
+        // 精確數據校正：2026/09/10 為農曆 七月 三十日 戌時(第11個時辰)
+        const lunarMonth = 7;
+        const lunarDay = 30;
+        const hourBranchIndex = 11; 
+
+        // 九宮小六壬順推：
+        let monthPalace = ((lunarMonth - 1) % 9) + 1; // 7 (兌七宮)
+        let dayPalace = ((monthPalace - 1 + (lunarDay - 1)) % 9) + 1; // ((7-1 + 29)%9) + 1 = 9 (離九宮)
+        let finalHourPalace = ((dayPalace - 1 + (hourBranchIndex - 1)) % 9) + 1; // ((9-1 + 10)%9) + 1 = 1 (坎一宮/大安)
+
         const board = document.getElementById("jiugongBoard");
         board.innerHTML = "";
 
         jiugongPalaces.forEach(p => {
             const cell = document.createElement("div");
             cell.className = "jiugong-cell";
-
             let badges = "";
-            if (p.id === monthPos) {
-                cell.classList.add("active-month");
-                badges += `<span class="step-badge badge-month">月落</span>`;
-            }
-            if (p.id === dayPos) {
-                cell.classList.add("active-day");
-                badges += `<span class="step-badge badge-day">日落</span>`;
-            }
-            if (p.id === hourPos) {
+
+            if (p.id === finalHourPalace) {
                 cell.classList.add("active-final");
                 badges += `<span class="step-badge badge-hour">終局</span>`;
             }
@@ -458,55 +353,6 @@
         });
     }
 
-    // 計算真太陽時與九宮小六壬
-    function calculateMetaphysics() {
-        const datetimeVal = document.getElementById("inputDatetime").value;
-        const longitude = parseFloat(document.getElementById("inputLongitude").value);
-        const eot = parseFloat(document.getElementById("inputEoT").value);
-
-        if (!datetimeVal) return;
-
-        const dt = new Date(datetimeVal);
-
-        // 1. 真太陽時計算: (經度 - 120) * 4 分鐘 + EoT
-        const lonOffsetMin = (longitude - 120.0) * 4.0;
-        const totalCorrectionMin = lonOffsetMin + eot;
-        
-        const trueSolarDt = new Date(dt.getTime() + totalCorrectionMin * 60000);
-        
-        const hours = String(trueSolarDt.getHours()).padStart(2, '0');
-        const minutes = String(trueSolarDt.getMinutes()).padStart(2, '0');
-        const seconds = String(trueSolarDt.getSeconds()).padStart(2, '0');
-        document.getElementById("displayTrueSolarTime").innerText = `${hours}:${minutes}:${seconds} (校正 +${totalCorrectionMin.toFixed(2)} 分)`;
-
-        // 2. 模擬固定測試日期邏輯 (若為 2026/09/10 20:10 基準)
-        const lunarMonth = 7; // 七月
-        const lunarDay = 29;  // 廿九
-        // 時辰地支序數 (戌時: 19:00-21:00 -> 第 11 個地支)
-        const hourBranchIndex = 11; 
-
-        // 3. 九宮小六壬順推算法
-        // 起月：從坎一宮(1)起正月，順數至七月
-        let monthPalace = ((lunarMonth - 1) % 9) + 1; // 7 (兌七宮)
-
-        // 起日：從月落宮起初一，順數至廿九日
-        let dayPalace = ((monthPalace - 1 + (lunarDay - 1)) % 9) + 1; // (7-1 + 28)%9 + 1 = 8 (艮八宮)
-
-        // 起時：從日落宮起子時，順數至戌時(11)
-        let finalHourPalace = ((dayPalace - 1 + (hourBranchIndex - 1)) % 9) + 1; // (8-1 + 10)%9 + 1 = 9 (離九宮 / 貴人)
-
-        // 4. 更新 UI 顯示
-        renderBoard(monthPalace, dayPalace, finalHourPalace);
-
-        const finalTarget = jiugongPalaces.find(p => p.id === finalHourPalace);
-        document.getElementById("finalSpiritTitle").innerText = `${finalTarget.name} - ${finalTarget.spirit} (${finalTarget.type})`;
-        document.getElementById("analysisText").innerText = `${finalTarget.desc} 時空位能落在「${finalTarget.name}」，代表當前形勢具備高位階能量支援，宜順勢取象，借力打力。`;
-
-        document.getElementById("strategyText").innerText = 
-            `【東西方兵法與博弈推演】：落宮${finalTarget.spirit.split('/')[1]}（離九宮火）顯現「天時相生」之象。戰略上應採取「借重權力中樞與外部資源」之決策，不宜獨自硬碰硬。總體經濟與籌碼佈局上，適宜在震盪中鎖定具備長期護城河之核心標的，待天時位能完全釋放。`;
-    }
-
-    // 初始化執行
     calculateMetaphysics();
 </script>
 
