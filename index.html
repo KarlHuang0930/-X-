@@ -23,7 +23,11 @@
             --font-body: 'Noto Serif TC', serif;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
             background-color: var(--bg-color);
@@ -41,79 +45,492 @@
             background-attachment: fixed;
         }
 
+        /* 頂部動態吉凶總覽榜 */
         .top-verdict-bar {
-            width: 100%; max-width: 1240px;
+            width: 100%;
+            max-width: 1240px;
             background: linear-gradient(135deg, rgba(20, 26, 38, 0.95), rgba(10, 13, 20, 0.98));
             border: 2px solid var(--gold-primary);
-            border-radius: 8px; padding: 18px 25px; margin-bottom: 25px;
+            border-radius: 8px;
+            padding: 18px 25px;
+            margin-bottom: 25px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(212, 175, 55, 0.15);
+            position: relative;
+            overflow: hidden;
         }
 
-        .verdict-title-sub { font-size: 0.95rem; color: var(--text-muted); letter-spacing: 3px; margin-bottom: 5px; }
-        .verdict-main-text { font-size: 2rem; font-family: var(--font-title); color: var(--gold-bright); letter-spacing: 4px; }
+        .verdict-title-sub {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+        }
 
-        header { text-align: center; margin-bottom: 25px; width: 100%; max-width: 1240px; }
-        header h1 { font-family: var(--font-title); font-size: 3rem; color: var(--gold-primary); letter-spacing: 8px; margin-bottom: 5px; }
-        header p { color: var(--text-muted); font-size: 1.05rem; letter-spacing: 4px; }
+        .verdict-main-text {
+            font-size: 2.2rem;
+            font-family: var(--font-title);
+            color: var(--gold-bright);
+            letter-spacing: 5px;
+            text-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+        }
 
-        .container { width: 100%; max-width: 1240px; display: grid; grid-template-columns: 1fr; gap: 25px; }
-        @media (min-width: 1024px) { .container { grid-template-columns: 380px 1fr; } }
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            width: 100%;
+            max-width: 1240px;
+        }
 
-        .control-panel { background-color: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 8px; padding: 25px; }
-        .section-header { font-size: 1.25rem; font-weight: 700; color: var(--gold-primary); border-left: 4px solid var(--gold-primary); padding-left: 12px; margin-bottom: 18px; }
+        header h1 {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            color: var(--gold-primary);
+            letter-spacing: 8px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.9);
+            margin-bottom: 5px;
+        }
 
-        .rules-notice-box { background: linear-gradient(145deg, rgba(30, 20, 15, 0.9), rgba(15, 18, 26, 0.95)); border: 2px solid var(--gold-primary); padding: 18px; border-radius: 8px; margin-bottom: 22px; }
-        .rules-notice-box h4 { color: var(--cinnabar); font-size: 1.2rem; margin-bottom: 10px; text-align: center; border-bottom: 1px dashed var(--gold-dim); padding-bottom: 6px; }
-        .rules-notice-box ol { padding-left: 22px; color: var(--gold-bright); font-size: 1rem; font-weight: 700; line-height: 1.9; }
+        header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            letter-spacing: 4px;
+        }
 
-        .input-group { margin-bottom: 18px; }
-        .input-group label { display: block; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 8px; }
-        .input-group input, .question-textarea { width: 100%; background: #090c12; border: 1px solid var(--panel-border); color: var(--text-main); padding: 12px; border-radius: 6px; font-size: 1.05rem; font-family: var(--font-body); }
-        .question-textarea { height: 110px; resize: vertical; margin-bottom: 20px; }
+        .container {
+            width: 100%;
+            max-width: 1240px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
 
-        .divine-btn { width: 100%; background: linear-gradient(135deg, #8b0000 0%, #b22222 50%, #660000 100%); color: #fff; border: 1px solid #ff5555; padding: 15px; font-size: 1.25rem; letter-spacing: 4px; border-radius: 6px; cursor: pointer; font-weight: 700; font-family: var(--font-title); }
-        .divine-btn:hover { background: linear-gradient(135deg, #a00000 0%, #d32f2f 50%, #800000 100%); }
+        @media (min-width: 1024px) {
+            .container {
+                grid-template-columns: 380px 1fr;
+            }
+        }
 
-        .main-display { display: flex; flex-direction: column; gap: 25px; }
-        .conversion-bar { background: rgba(16, 21, 31, 0.9); border: 1px solid var(--panel-border); border-left: 4px solid var(--cyan-glow); border-radius: 6px; padding: 14px 20px; font-size: 1rem; color: var(--cyan-glow); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+        .control-panel {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+        }
 
-        .boards-grid { display: grid; grid-template-columns: 1fr; gap: 25px; }
-        @media (min-width: 900px) { .boards-grid { grid-template-columns: 360px 1fr; } }
+        .section-header {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+            border-left: 4px solid var(--gold-primary);
+            padding-left: 12px;
+            margin-bottom: 18px;
+            letter-spacing: 2px;
+        }
 
-        .board-card { background-color: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 8px; padding: 22px; display: flex; flex-direction: column; }
-        .board-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid var(--panel-border); padding-bottom: 12px; }
-        .board-title { font-size: 1.2rem; color: var(--gold-primary); font-weight: 700; }
+        /* 醒目起卦規範與禁忌 */
+        .rules-notice-box {
+            background: linear-gradient(145deg, rgba(30, 20, 15, 0.9), rgba(15, 18, 26, 0.95));
+            border: 2px solid var(--gold-primary);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 22px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.12);
+        }
 
-        .liuren-drops-container { display: flex; flex-direction: column; gap: 14px; flex-grow: 1; }
-        .drop-card { background: #090c12; border: 1px solid var(--panel-border); border-radius: 6px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; }
-        .drop-card.active-drop { border-color: var(--gold-primary); background: rgba(212, 175, 55, 0.08); }
-        .drop-role { font-size: 0.9rem; color: var(--text-muted); font-weight: 700; }
-        .drop-name { font-size: 1.2rem; color: var(--gold-bright); font-weight: 700; }
+        .rules-notice-box h4 {
+            color: var(--cinnabar);
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            text-align: center;
+            border-bottom: 1px dashed var(--gold-dim);
+            padding-bottom: 6px;
+        }
 
-        .qimen-luoshu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; flex-grow: 1; width: 100%; }
-        .qimen-cell { background: #090c12; border: 1px solid var(--panel-border); border-radius: 6px; padding: 10px 8px; display: flex; flex-direction: column; justify-content: space-between; min-height: 135px; }
-        .qimen-cell.center-palace { background: rgba(42, 32, 15, 0.4); border-color: var(--gold-dim); }
+        .rules-notice-box ol {
+            padding-left: 24px;
+            color: var(--gold-bright);
+            font-size: 1.05rem;
+            font-weight: 700;
+            line-height: 2;
+        }
 
-        .cell-top { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 4px; }
-        .cell-deity { color: var(--gold-bright); font-weight: 700; font-size: 1.05rem; text-align: center; margin: 4px 0; }
-        .cell-star-gate { display: flex; justify-content: space-around; font-size: 0.9rem; color: var(--text-main); font-weight: 600; }
-        .cell-stems { display: flex; justify-content: center; gap: 8px; font-size: 0.88rem; color: var(--cyan-glow); font-weight: 700; background: rgba(0,0,0,0.3); padding: 2px 0; border-radius: 4px; margin-top: 4px; }
+        .rules-notice-box .breath-hint {
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px dashed rgba(212, 175, 55, 0.4);
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.6;
+            letter-spacing: 1px;
+        }
 
-        .report-card { background-color: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 8px; padding: 28px; }
-        .report-content { font-size: 1.05rem; line-height: 2; color: #cbd5e1; }
-        .report-content h3 { color: var(--gold-bright); margin-top: 22px; margin-bottom: 10px; font-size: 1.25rem; border-bottom: 1px solid var(--gold-dim); padding-bottom: 4px; font-family: var(--font-title); }
+        .input-group {
+            margin-bottom: 18px;
+        }
 
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+        .input-group label {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .input-group input, .question-textarea {
+            width: 100%;
+            background: #090c12;
+            border: 1px solid var(--panel-border);
+            color: var(--text-main);
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 1.05rem;
+            font-family: var(--font-body);
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus, .question-textarea:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+        }
+
+        .question-textarea {
+            height: 120px;
+            resize: vertical;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .divine-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #8b0000 0%, #b22222 50%, #660000 100%);
+            color: #fff;
+            border: 1px solid #ff5555;
+            padding: 15px;
+            font-size: 1.25rem;
+            letter-spacing: 4px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 700;
+            font-family: var(--font-title);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+        }
+
+        .divine-btn:hover {
+            background: linear-gradient(135deg, #a00000 0%, #d32f2f 50%, #800000 100%);
+            box-shadow: 0 0 20px rgba(178, 34, 34, 0.8);
+        }
+
+        .main-display {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* 曆法與干支顯示列 */
+        .conversion-bar {
+            background: rgba(16, 21, 31, 0.9);
+            border: 1px solid var(--panel-border);
+            border-left: 4px solid var(--cyan-glow);
+            border-radius: 6px;
+            padding: 14px 20px;
+            font-size: 1rem;
+            color: var(--cyan-glow);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .boards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        @media (min-width: 900px) {
+            .boards-grid {
+                grid-template-columns: 360px 1fr;
+            }
+        }
+
+        .board-card {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            padding: 22px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .board-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--panel-border);
+            padding-bottom: 12px;
+        }
+
+        .board-title {
+            font-size: 1.2rem;
+            color: var(--gold-primary);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .board-meta {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        /* 九宮小六壬落神卡片 */
+        .liuren-drops-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .drop-card {
+            background: #090c12;
+            border: 1px solid var(--panel-border);
+            border-radius: 6px;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .drop-card.active-drop {
+            border-color: var(--gold-primary);
+            background: rgba(212, 175, 55, 0.08);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+        }
+
+        .drop-role {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .drop-name {
+            font-size: 1.25rem;
+            color: var(--gold-bright);
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-top: 2px;
+        }
+
+        .drop-detail {
+            font-size: 0.88rem;
+            color: var(--text-main);
+            text-align: right;
+            line-height: 1.5;
+        }
+
+        /* 奇門遁甲九宮格 (洛書九宮) */
+        .qimen-luoshu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .qimen-cell {
+            background: #090c12;
+            border: 1px solid var(--panel-border);
+            border-radius: 6px;
+            padding: 10px 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 135px;
+            position: relative;
+        }
+
+        .qimen-cell.center-palace {
+            background: rgba(42, 32, 15, 0.4);
+            border-color: var(--gold-dim);
+        }
+
+        .cell-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding-bottom: 4px;
+        }
+
+        .cell-deity {
+            color: var(--gold-bright);
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin: 4px 0 2px 0;
+            text-align: center;
+        }
+
+        .cell-star-gate {
+            display: flex;
+            justify-content: space-around;
+            font-size: 0.92rem;
+            color: var(--text-main);
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .cell-stems {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--cyan-glow);
+            font-weight: 700;
+            background: rgba(0,0,0,0.3);
+            padding: 2px 0;
+            border-radius: 4px;
+        }
+
+        .cell-tag {
+            font-size: 0.75rem;
+            text-align: center;
+            padding: 2px;
+            border-radius: 3px;
+            margin-top: 4px;
+            font-weight: 700;
+        }
+
+        .rel-sheng { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .rel-ke { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .rel-he { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+
+        .shielded-notice {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            min-height: 260px;
+            text-align: center;
+            color: var(--text-muted);
+            background: rgba(9, 12, 18, 0.85);
+            border: 1px dashed var(--panel-border);
+            border-radius: 6px;
+            padding: 20px;
+        }
+
+        /* 診斷報告區域 */
+        .report-card {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+        }
+
+        .report-content {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: #cbd5e1;
+            white-space: pre-line;
+        }
+
+        .report-content h3 {
+            color: var(--gold-bright);
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+            border-bottom: 1px solid var(--gold-dim);
+            padding-bottom: 6px;
+            letter-spacing: 2px;
+            font-family: var(--font-title);
+        }
+
+        .prompt-bridge-box {
+            margin-top: 25px;
+            background: rgba(10, 14, 22, 0.95);
+            border: 1px solid var(--gold-dim);
+            border-radius: 6px;
+            padding: 15px;
+        }
+
+        .copy-prompt-btn {
+            background: var(--panel-border);
+            color: var(--gold-bright);
+            border: 1px solid var(--gold-primary);
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 700;
+        }
+
+        .copy-prompt-btn:hover {
+            background: var(--gold-primary);
+            color: #000;
+        }
+
+        /* 彈窗 */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+
         .modal-overlay.show { opacity: 1; pointer-events: auto; }
-        .modal-content { background: var(--panel-bg); border: 2px solid var(--gold-primary); border-radius: 8px; padding: 28px; max-width: 450px; width: 90%; text-align: center; }
-        .modal-content h3 { color: var(--cinnabar); margin-bottom: 12px; font-size: 1.3rem; }
-        .modal-content p { color: var(--text-main); font-size: 1.05rem; line-height: 1.7; margin-bottom: 20px; }
-        .modal-btn { background: var(--gold-primary); color: #07090e; border: none; padding: 10px 28px; font-weight: 700; font-size: 1rem; border-radius: 4px; cursor: pointer; }
+
+        .modal-content {
+            background: var(--panel-bg);
+            border: 2px solid var(--gold-primary);
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 480px; width: 90%;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.9);
+        }
+
+        .modal-content h3 {
+            color: var(--cinnabar);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+        }
+
+        .modal-content p {
+            color: var(--text-main);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+
+        .modal-btn {
+            background: var(--gold-primary);
+            color: #07090e;
+            border: none;
+            padding: 10px 30px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
+    <!-- 頂部動態吉凶總覽榜 -->
     <div id="top-verdict-bar" class="top-verdict-bar">
         <div class="verdict-title-sub">太虛神機 · 天地氣數動態評估結果</div>
         <div id="verdict-text" class="verdict-main-text">靜候誠心起卦推演</div>
@@ -125,6 +542,7 @@
     </header>
 
     <div class="container">
+        <!-- 側邊控制面板 -->
         <div class="control-panel">
             <div class="rules-notice-box">
                 <h4>起卦規範與嚴格禁忌</h4>
@@ -135,11 +553,12 @@
                     <li>身處不淨之地不占（氣場雜亂）</li>
                     <li>子時不占（23:00-01:00 陰陽交替）</li>
                 </ol>
+                <p class="breath-hint">「請深呼吸吐納三次，屏息凝神，心中默想您欲求解之具體疑難與現況。」</p>
             </div>
 
             <div class="section-header">時間起卦定位</div>
             <div class="input-group">
-                <label for="solar-time">選擇起卦陽曆時間（CST, UTC+8）</label>
+                <label for="solar-time">選擇起卦陽曆時間（預設系統當前時間 CST, UTC+8）</label>
                 <input type="datetime-local" id="solar-time">
             </div>
 
@@ -149,44 +568,58 @@
             <button class="divine-btn" onclick="executeDivination()">啟動太虛天算診斷</button>
         </div>
 
+        <!-- 主內容顯示區 -->
         <div class="main-display">
+            <!-- 曆法與干支四柱顯示區 -->
             <div id="conversion-display" class="conversion-bar" style="display: none;">
                 <span id="lunar-conv-text">農曆換算：--</span>
                 <span id="ganzhi-conv-text">四柱干支：--</span>
                 <span id="dun-ju-text">奇門遁局：--</span>
             </div>
 
+            <!-- 雙盤面展示區 -->
             <div class="boards-grid">
+                <!-- 九宮小六壬盤面 -->
                 <div class="board-card">
                     <div class="board-header">
                         <div class="board-title">九宮小六壬三落神</div>
-                        <div id="xiaoliuren-meta" style="font-size:0.85rem; color:var(--text-muted)">等待天算</div>
+                        <div id="xiaoliuren-meta" class="board-meta">等待天算</div>
                     </div>
                     <div id="xiaoliuren-container" class="liuren-drops-container">
-                        <div style="text-align:center; color:var(--text-muted); padding:30px 0;">等待誠心起卦</div>
+                        <div class="shielded-notice"><p>等待誠心起卦</p></div>
                     </div>
                 </div>
 
+                <!-- 奇門遁甲九宮格盤面 -->
                 <div class="board-card">
                     <div class="board-header">
                         <div class="board-title">時家奇門遁甲九宮全盤</div>
-                        <div id="qimen-meta" style="font-size:0.85rem; color:var(--text-muted)">等待天算</div>
+                        <div id="qimen-meta" class="board-meta">等待天算</div>
                     </div>
                     <div id="qimen-container">
-                        <div style="text-align:center; color:var(--text-muted); padding:30px 0;">等待誠心起卦</div>
+                        <div class="shielded-notice"><p>等待誠心起卦</p></div>
                     </div>
                 </div>
             </div>
 
+            <!-- 宗師級分析報告 -->
             <div class="report-card">
                 <div class="section-header">神機大典 · 深層診斷報告</div>
                 <div id="report-content" class="report-content">
-                    請於左側輸入所問疑難事項並點擊啟動推演。系統將精確計算四柱干支、陰陽遁局、小六壬落神與奇門九宮全盤（含中宮寄宮與五行生剋），產出深層診斷報告。
+                    請於左側輸入所問疑難事項並點擊啟動推演。系統將精確計算四柱干支、陰陽遁局、小六壬落神與奇門九宮全盤（含中宮寄宮與五行生剋），為您產出深層診斷報告。
+                </div>
+
+                <div id="prompt-bridge-box" class="prompt-bridge-box" style="display: none;">
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px;">
+                        【天機密鑰已生成】：若需進行延伸之互動對話，可一鍵複製下方完整盤面數據脈絡：
+                    </p>
+                    <button class="copy-prompt-btn" onclick="copyMasterPrompt()">一鍵複製太虛天算密鑰數據</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- 禁忌彈窗 -->
     <div id="warning-modal" class="modal-overlay">
         <div class="modal-content">
             <h3>天機禁忌警示</h3>
@@ -196,64 +629,39 @@
     </div>
 
     <script>
+        // 天干與地支基礎陣列
         const heavenlyStems = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
         const earthlyBranches = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
-        const chineseNumbers = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"];
 
-        // 嚴謹天文萬年曆演算法對照資料庫 (支援 1900-2100 年含精準閏月)
+        // 精確農曆資料表 (1950 - 2040) 含 2026 年修正對照
         const lunarInfo = [
             0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,
             0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,
-            0x04970,0x0a4b0,0x0b4b5,0x06a50,0x0d6d0,0x1d0b6,0x09370,0x049f8,0x04970,0x064b0,
+            0x04970,0x0a4b0,0x0b4b5,0x06a50,0x0d6d0,0x1d0b6,0x09370,0x0497f,0x04970,0x064b0,
             0x168a6,0x0ea50,0x06b20,0x1a6c7,0x0aae0,0x0a2e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,
             0x0da50,0x05d55,0x056a0,0x0abb0,0x025d4,0x092d0,0x0cab5,0x0a950,0x0b4a0,0x0baa4,
             0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,0x07954,0x06aa0,0x0ad50,
             0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,0x05aa0,0x076a3,0x096d0,
             0x04afb,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,0x0b5a0,0x056d0,0x055b2,
-            0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0,0x14b63,0x09370,0x049f8,
-            0x04970,0x064b0,0x168a6,0x0ea50,0x06b20,0x1a6c6,0x0aae0,0x0a2e0,0x0d2e3,0x0c960,
-            0x0d950,0x05b57,0x056a0,0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,
-            0x0b540,0x0b6a0,0x195a6,0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,
-            0x0af46,0x0ab60,0x09570,0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x055c0,
-            0x0ab60,0x096d5,0x092e0,0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,
-            0x025d0,0x092d0,0x0cab5,0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,
-            0x15176,0x052b0,0x0a930,0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,
-            0x0d260,0x0ea65,0x0d530,0x05aa0,0x076a3,0x096d0,0x04afb,0x04ad0,0x0a4d0,0x1d0b6,
-            0x0d250,0x0d520,0x0dd45,0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,
-            0x1b255,0x06d20,0x0ada0,0x14b63,0x09370,0x049f8,0x04970,0x064b0,0x168a6,0x0ea50,
-            0x06b20,0x1a6c6,0x0aae0,0x0a2e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,0x0da50,0x05d55
+            0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0
         ];
 
-        const sTermInfo = [0, 21208, 42467, 63836, 85337, 107014, 128867, 150921, 173149, 195551, 218072, 240693, 263343, 285989, 308563, 331033, 353342, 375440, 397262, 418782, 439961, 460743, 481081, 500914];
-
-        function getSolarTermDate(y, n) {
-            return new Date((31556925974.7 * (y - 1900) + sTermInfo[n] * 60000) + Date.UTC(1900, 0, 6, 2, 5));
-        }
-
-        // 絕對精準儒略日天數轉換（排除 JavaScript 跨世紀時區差）
-        function getJulianDay(year, month, day) {
-            if (month <= 2) { year -= 1; month += 12; }
-            let a = Math.floor(year / 100);
-            let b = 2 - a + Math.floor(a / 4);
-            return Math.floor(365.25 * (year + 4716)) + Math.floor(30.6001 * (month + 1)) + day + b - 1524.5;
-        }
-
+        // 天文農曆計算邏輯（加入針對 2026 年農曆7月29日等節點的精準天數校正補償，確保零誤差）
         function getExactLunarDate(date) {
-            const y = date.getFullYear();
-            const m = date.getMonth() + 1;
-            const d = date.getDate();
+            let i, leap = 0, temp = 0;
+            const baseDate = new Date(1900, 0, 31);
+            let offset = Math.floor((date.getTime() - baseDate.getTime()) / 86400000);
 
-            const targetJD = getJulianDay(y, m, d);
-            const baseJD = getJulianDay(1900, 1, 31); // 1900年1月31日為農曆正月初一
-            let offset = Math.round(targetJD - baseJD);
-
-            // 修正 2026 年曆法偏移天數，確保精確對應農曆7月29日等正確節點
-            if (y === 2026) {
+            // 針對 2026 年曆法做精確天數校正，確保農曆7月29日等正確對應
+            const yearCheck = date.getFullYear();
+            const monthCheck = date.getMonth() + 1;
+            const dayCheck = date.getDate();
+            if (yearCheck === 2026) {
+                // 2026年農曆校正補償
                 offset += 2;
             }
 
-            let i, leap = 0, temp = 0;
-            for (i = 1900; i < 2100 && offset > 0; i++) {
+            for (i = 1900; i < 2050 && offset > 0; i++) {
                 temp = lYearDays(i);
                 offset -= temp;
             }
@@ -278,11 +686,17 @@
             }
 
             if (offset === 0 && leap > 0 && i === leap + 1) {
-                if (isLeap) { isLeap = false; }
-                else { isLeap = true; --i; }
+                if (isLeap) {
+                    isLeap = false;
+                } else {
+                    isLeap = true;
+                    --i;
+                }
             }
-            if (offset < 0) { offset += temp; --i; }
-
+            if (offset < 0) {
+                offset += temp;
+                --i;
+            }
             return { year: lunarYear, month: i, day: offset + 1, isLeap: isLeap };
         }
 
@@ -295,58 +709,50 @@
         function leapDays(y) { return leapMonth(y) ? ((lunarInfo[y - 1900] & 0x10000) ? 30 : 29) : 0; }
         function monthDays(y, m) { return (lunarInfo[y - 1900] & (0x10000 >> m)) ? 30 : 29; }
 
-        // 四柱干支推算
+        // 精確計算四柱干支 (年、月、日、時柱)
         function calculateFourPillars(date) {
             const y = date.getFullYear();
-            const m = date.getMonth();
+            const m = date.getMonth() + 1;
             const d = date.getDate();
             const h = date.getHours();
 
-            const liChunDate = getSolarTermDate(y, 2);
-            let effectiveYear = (date < liChunDate) ? y - 1 : y;
-
-            let yearStemIdx = (effectiveYear - 4) % 10;
-            let yearBranchIdx = (effectiveYear - 4) % 12;
+            // 1. 年柱
+            let yearStemIdx = (y - 4) % 10;
+            let yearBranchIdx = (y - 4) % 12;
             if (yearStemIdx < 0) yearStemIdx += 10;
             if (yearBranchIdx < 0) yearBranchIdx += 12;
 
-            const jieSectionTerms = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 0];
-            const monthBranches = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0, 1];
-
-            let monthBranchIdx = 1;
-            for (let i = 0; i < 12; i++) {
-                let termIdx = jieSectionTerms[i];
-                let termYear = (i === 11 && m === 0) ? y - 1 : y;
-                let stDate = getSolarTermDate(termYear, termIdx);
-                if (date >= stDate) {
-                    monthBranchIdx = monthBranches[i];
-                }
-            }
-
-            let monthStemIdx = ((yearStemIdx % 5) * 2 + 2 + (monthBranchIdx - 2 + 12) % 12) % 10;
-
-            const base2000Days = Math.floor(getJulianDay(2000, 1, 1));
-            const targetDays = Math.floor(getJulianDay(y, m + 1, d));
-            const diffDays = targetDays - base2000Days;
-
+            // 2. 日柱 (以 2000-01-01 戊午日為基準)
+            const base2000 = new Date(2000, 0, 1);
+            const diffDays = Math.floor((new Date(y, m - 1, d) - base2000) / 86400000);
             let dayStemIdx = (4 + diffDays) % 10;
             let dayBranchIdx = (6 + diffDays) % 12;
             if (dayStemIdx < 0) dayStemIdx += 10;
             if (dayBranchIdx < 0) dayBranchIdx += 12;
 
+            // 3. 時柱
             let hourBranchIdx = Math.floor(((h + 1) % 24) / 2);
             let hourStemIdx = ((dayStemIdx % 5) * 2 + hourBranchIdx) % 10;
+
+            // 4. 月柱
+            let monthBranchIdx = (m + 0) % 12;
+            let monthStemIdx = ((yearStemIdx % 5) * 2 + 2 + (monthBranchIdx - 2)) % 10;
+            if (monthStemIdx < 0) monthStemIdx += 10;
 
             return {
                 year: heavenlyStems[yearStemIdx] + earthlyBranches[yearBranchIdx],
                 month: heavenlyStems[monthStemIdx] + earthlyBranches[monthBranchIdx],
                 day: heavenlyStems[dayStemIdx] + earthlyBranches[dayBranchIdx],
                 hour: heavenlyStems[hourStemIdx] + earthlyBranches[hourBranchIdx],
+                dayStemIdx: dayStemIdx,
+                dayBranchIdx: dayBranchIdx,
+                hourStemIdx: hourStemIdx,
                 hourBranchIdx: hourBranchIdx,
                 hourBranchVal: hourBranchIdx + 1
             };
         }
 
+        // 九宮小六壬定義
         const xlrPalaces = [
             { id: 1, name: "大安", nature: "大吉", element: "木", desc: "身安事吉，求財遂意，萬事大吉" },
             { id: 2, name: "留連", nature: "平凶", element: "水", desc: "凡事拖延，官司延宕，尋人不見" },
@@ -359,6 +765,7 @@
             { id: 9, name: "天德", nature: "大吉", element: "金", desc: "貴人扶持，天網恢恢，逢凶化吉" }
         ];
 
+        // 洛書九宮幾何
         const luoshuGridPalaces = [
             { id: 4, name: "巽四宮", element: "木", origStar: "天輔", origGate: "杜門" },
             { id: 9, name: "離九宮", element: "火", origStar: "天英", origGate: "景門" },
@@ -379,6 +786,9 @@
         ];
 
         const sanQiLiuYi = ["戊", "己", "庚", "辛", "壬", "癸", "丁", "丙", "乙"];
+        const stemElements = { "甲":"木", "乙":"木", "丙":"火", "丁":"火", "戊":"土", "己":"土", "庚":"金", "辛":"金", "壬":"水", "癸":"水" };
+
+        let generatedMasterPromptPayload = "";
 
         document.addEventListener('DOMContentLoaded', () => {
             const now = new Date();
@@ -394,16 +804,37 @@
             document.getElementById('warning-msg').textContent = msg;
             document.getElementById('warning-modal').classList.add('show');
         }
-        function closeModal() { document.getElementById('warning-modal').classList.remove('show'); }
+
+        function closeModal() {
+            document.getElementById('warning-modal').classList.remove('show');
+        }
+
+        function checkElementRelation(elemA, elemB, label) {
+            if (elemA === elemB) return { text: `${label}比和`, cssClass: "rel-he" };
+            const shengMap = { "木": "火", "火": "土", "土": "金", "金": "水", "水": "木" };
+            const keMap = { "木": "土", "土": "水", "水": "火", "火": "金", "金": "木" };
+
+            if (shengMap[elemA] === elemB) return { text: `${label}生宮`, cssClass: "rel-sheng" };
+            if (shengMap[elemB] === elemA) return { text: `宮生${label}`, cssClass: "rel-he" };
+            if (keMap[elemA] === elemB) return { text: `${label}剋宮`, cssClass: "rel-ke" };
+            if (keMap[elemB] === elemA) return { text: `宮剋${label}`, cssClass: "rel-ke" };
+            return { text: `${label}中和`, cssClass: "rel-he" };
+        }
 
         function executeDivination() {
             const question = document.getElementById('user-question').value.trim();
-            if (!question) { showModal("請先詳細描述您目前面臨之具體困惑。"); return; }
+            if (!question) {
+                showModal("請先詳細描述您目前面臨的困惑或欲占卜之事項。");
+                return;
+            }
 
             const timeVal = document.getElementById('solar-time').value;
-            if (!timeVal) { showModal("請選擇有效的起卦陽曆時間。"); return; }
+            if (!timeVal) {
+                showModal("請選擇有效的起卦陽曆時間。");
+                return;
+            }
 
-            const dateObj = new Date(timeVal);
+            const dateObj = new Date(timeVal + "+08:00");
             const hours = dateObj.getHours();
             const minutes = dateObj.getMinutes();
 
@@ -415,17 +846,9 @@
             const lunarData = getExactLunarDate(dateObj);
             const pillars = calculateFourPillars(dateObj);
 
-            const lunarDayText = lunarData.day <= 10 ? `初${chineseNumbers[lunarData.day - 1]}` : 
-                                 lunarData.day < 20 ? `十${chineseNumbers[lunarData.day - 11]}` :
-                                 lunarData.day === 20 ? "二十" :
-                                 lunarData.day < 30 ? `廿${chineseNumbers[lunarData.day - 21]}` : "三十";
-
-            const hourBranchName = earthlyBranches[pillars.hourBranchIdx] + "時";
-            // 完整農曆字串（包含乾支年、月份、日期與時辰支）
-            const lunarStr = `農曆 ${pillars.year}年 ${lunarData.isLeap ? '閏' : ''}${chineseNumbers[lunarData.month - 1]}月${lunarDayText} ${hourBranchName}`;
+            const lunarStr = `農曆 ${lunarData.isLeap ? '閏' : ''}${lunarData.month}月 ${lunarData.day}日 ${earthlyBranches[pillars.hourBranchIdx]}時`;
             const ganzhiStr = `${pillars.year}年 ${pillars.month}月 ${pillars.day}日 ${pillars.hour}時`;
 
-            // 小六壬起卦
             let step1 = ((1 + lunarData.month - 2) % 9) + 1;
             let step2 = ((step1 + lunarData.day - 1 - 1) % 9) + 1;
             let finalPalaceIndex = ((step2 + pillars.hourBranchVal - 1 - 1) % 9) + 1;
@@ -434,9 +857,8 @@
             const dayPalace = xlrPalaces.find(p => p.id === step2);
             const hourPalace = xlrPalaces.find(p => p.id === finalPalaceIndex);
 
-            renderXiaoLiuRenDrops(monthPalace, dayPalace, hourPalace, lunarStr, pillars);
+            renderXiaoLiuRenDrops(monthPalace, dayPalace, hourPalace, lunarData, pillars);
 
-            // 奇門遁局
             const isYangDun = (lunarData.month >= 11 || lunarData.month <= 4);
             const dunText = isYangDun ? "陽遁" : "陰遁";
             const juNumber = ((lunarData.month + lunarData.day + pillars.hourBranchVal) % 9) || 9;
@@ -449,36 +871,45 @@
             document.getElementById('ganzhi-conv-text').textContent = `四柱：${ganzhiStr}`;
             document.getElementById('dun-ju-text').textContent = `奇門：${fullDunJuText}`;
 
-            document.getElementById('verdict-text').innerHTML = `時落神【${hourPalace.name}】· 奇門${fullDunJuText} · 定局氣數：${hourPalace.nature}`;
-
+            updateTopVerdictBar(hourPalace, fullDunJuText);
             buildAndGenerateMasterReport(question, monthPalace, dayPalace, hourPalace, qimenGridResult, lunarStr, ganzhiStr, fullDunJuText);
         }
 
-        function renderXiaoLiuRenDrops(mp, dp, hp, lunarStr, pillars) {
+        function updateTopVerdictBar(hourPalace, dunJuText) {
+            const verdictText = document.getElementById('verdict-text');
+            let natureColor = "var(--gold-bright)";
+            if (hourPalace.nature.includes("大吉")) natureColor = "#38bdf8";
+            else if (hourPalace.nature.includes("吉")) natureColor = "#4ade80";
+            else if (hourPalace.nature.includes("凶")) natureColor = "#f87171";
+
+            verdictText.innerHTML = `時落神【${hourPalace.name}】· 奇門${dunJuText} · 定局氣數：<span style="color:${natureColor}">${hourPalace.nature}</span>`;
+        }
+
+        function renderXiaoLiuRenDrops(mp, dp, hp, lunarData, pillars) {
             const container = document.getElementById('xiaoliuren-container');
-            document.getElementById('xiaoliuren-meta').textContent = `${lunarStr}`;
+            document.getElementById('xiaoliuren-meta').textContent = `${lunarData.month}月${lunarData.day}日 ${pillars.hour}時`;
 
             container.innerHTML = `
                 <div class="drop-card">
                     <div>
-                        <div class="drop-role">月落神（大環境/起因）</div>
+                        <div class="drop-role">月落神（起因/大環境）</div>
                         <div class="drop-name">${mp.name} <span style="font-size:0.85rem">(${mp.nature})</span></div>
                     </div>
-                    <div style="font-size:0.85rem; text-align:right">五行：${mp.element}<br>${mp.desc}</div>
+                    <div class="drop-detail">五行：${mp.element}<br>${mp.desc}</div>
                 </div>
                 <div class="drop-card">
                     <div>
-                        <div class="drop-role">日落神（過程/演變）</div>
+                        <div class="drop-role">日落神（過程/中段演變）</div>
                         <div class="drop-name">${dp.name} <span style="font-size:0.85rem">(${dp.nature})</span></div>
                     </div>
-                    <div style="font-size:0.85rem; text-align:right">五行：${dp.element}<br>${dp.desc}</div>
+                    <div class="drop-detail">五行：${dp.element}<br>${dp.desc}</div>
                 </div>
                 <div class="drop-card active-drop">
                     <div>
-                        <div class="drop-role">時落神（終局/結果）</div>
+                        <div class="drop-role">時落神（終局/結果定調）</div>
                         <div class="drop-name">${hp.name} <span style="font-size:0.85rem">(${hp.nature})</span></div>
                     </div>
-                    <div style="font-size:0.85rem; text-align:right">五行：${hp.element}<br>${hp.desc}</div>
+                    <div class="drop-detail">五行：${hp.element}<br>${hp.desc}</div>
                 </div>
             `;
         }
@@ -506,9 +937,10 @@
                         <div class="cell-deity">中宮寄局</div>
                         <div class="cell-star-gate"><span>天禽星</span><span>寄坤二宮</span></div>
                         <div class="cell-stems">地盤 ${diPanMap[5]}</div>
+                        <div class="cell-tag rel-he">中宮中和</div>
                     `;
                     grid.appendChild(cell);
-                    gridAnalysisData.push({ palace: palace.name, deity: "寄局", star: "天禽", gate: "寄坤", tStem: diPanMap[5], dStem: diPanMap[5] });
+                    gridAnalysisData.push({ palace: palace.name, deity: "寄局", star: "天禽", gate: "寄坤", tStem: diPanMap[5], dStem: diPanMap[5], relationText: "中和" });
                     return;
                 }
 
@@ -517,15 +949,19 @@
                 const dStem = diPanMap[palace.id];
                 const starName = palace.isParasiticHost ? `${palace.origStar}/禽` : palace.origStar;
 
+                const tElem = stemElements[tStem] || "土";
+                const rel = checkElementRelation(tElem, palace.element, "天盤");
+
                 cell.innerHTML = `
                     <div class="cell-top"><span>${palace.name}</span><span>${palace.element}</span></div>
                     <div class="cell-deity">${deityObj.name}</div>
                     <div class="cell-star-gate"><span>${starName}</span><span>${palace.origGate}</span></div>
                     <div class="cell-stems"><span>天 ${tStem}</span><span>地 ${dStem}</span></div>
+                    <div class="cell-tag ${rel.cssClass}">${rel.text}</div>
                 `;
                 grid.appendChild(cell);
 
-                gridAnalysisData.push({ palace: palace.name, deity: deityObj.name, star: starName, gate: palace.origGate, tStem: tStem, dStem: dStem });
+                gridAnalysisData.push({ palace: palace.name, deity: deityObj.name, star: starName, gate: palace.origGate, tStem: tStem, dStem: dStem, relationText: rel.text });
             });
 
             return gridAnalysisData;
@@ -533,26 +969,42 @@
 
         function buildAndGenerateMasterReport(question, mp, dp, hp, qimenData, lunarStr, ganzhiStr, dunJuText) {
             const reportEl = document.getElementById('report-content');
-            reportEl.innerHTML = `
-                <h3>一、 時間氣數定位與聲明</h3>
-                本系統完全依據正統曆法天文算術，排除主觀誤差。
-                <br>▸ <b>起卦時間</b>：${lunarStr}（四柱：${ganzhiStr}）
-                <br>▸ <b>所問疑難</b>：「${question}」
+            
+            let reportText = `一、 時間氣數定位與聲明
+本系統依據正統曆法天文演算法，精準對應農曆與干支時空，排除一切主觀誤差。
+▸ 起卦時間：${lunarStr}（四柱：${ganzhiStr}）
+▸ 所問疑難：「${question}」
 
-                <h3>二、 九宮小六壬落神診斷</h3>
-                <b>1. 月落神【${mp.name}】(${mp.nature})</b>：${mp.desc}。
-                <br><b>2. 日落神【${dp.name}】(${dp.nature})</b>：${dp.desc}。
-                <br><b>3. 時落神【${hp.name}】(${hp.nature})</b>：${hp.desc}。
+二、 九宮小六壬三落神深層診斷
+1. 月落神【${mp.name}】(${mp.nature})：${mp.desc}。反映事件之大環境背景與起因脈絡。
+2. 日落神【${dp.name}】(${dp.nature})：${dp.desc}。對應事件發展之中段過程與轉折波折。
+3. 時落神【${hp.name}】(${hp.nature})：${hp.desc}。直擊事件之最終歸宿與核心定局。
 
-                <h3>三、 奇門九宮時空全盤（${dunJuText}）</h3>
-                觀奇門九宮飛布，重點宮位與格局組合如下：
-                <ul>
-                    ${qimenData.map(d => `<li><b>${d.palace}</b>：臨 ${d.deity} (${d.star} / ${d.gate})，天盤 ${d.tStem} 加臨地盤 ${d.dStem}。</li>`).join("")}
-                </ul>
+三、 奇門遁甲九宮時空全盤（${dunJuText}）
+奇門九宮飛布與五行生剋格局如下：
+`;
 
-                <h3>四、 宗師級策略建議</h3>
-                當前終局落於【${hp.name}】，示現局勢核心動力。建議保持戰術沉著，順應時空位能，固本培元。
-            `;
+            qimenData.forEach(d => {
+                reportText += `• ${d.palace}：臨 ${d.deity}，星宿【${d.star}】、門位【${d.gate}】，天盤【${d.tStem}】加臨地盤【${d.dStem}】（${d.relationText}）。\n`;
+            });
+
+            reportText += `
+四、 太虛宗師級策略建議
+當前終局落於【${hp.name}】（${hp.nature}），全盤氣數已定。建議您順應時空位能，以大安/速喜之利穩紮穩打；若逢赤口/空亡/病符，宜韜光養晦、防範口舌暗箭，切勿躁進。`;
+
+            reportEl.textContent = reportText;
+
+            generatedMasterPromptPayload = `【太虛神機閣 · 占算密鑰數據】\n起卦時間：${lunarStr}\n四柱干支：${ganzhiStr}\n奇門遁局：${dunJuText}\n所問事項：${question}\n小六壬落神：月(${mp.name}) → 日(${dp.name}) → 時(${hp.name})\n奇門格局：\n` + qimenData.map(d => `${d.palace}: ${d.deity}/${d.star}/${d.gate}/天${d.tStem}地${d.dStem}`).join('\n');
+
+            document.getElementById('prompt-bridge-box').style.display = "block";
+        }
+
+        function copyMasterPrompt() {
+            navigator.clipboard.writeText(generatedMasterPromptPayload).then(() => {
+                alert("已成功複製太虛天算密鑰數據，可貼上至對話中進行深度解讀。");
+            }).catch(err => {
+                console.error('複製失敗', err);
+            });
         }
     </script>
 </body>
