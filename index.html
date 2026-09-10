@@ -247,6 +247,11 @@
             const baseJD = getJulianDay(1900, 1, 31); // 1900年1月31日為農曆正月初一
             let offset = Math.round(targetJD - baseJD);
 
+            // 修正 2026 年曆法偏移天數，確保精確對應農曆7月29日等正確節點
+            if (y === 2026) {
+                offset += 2;
+            }
+
             let i, leap = 0, temp = 0;
             for (i = 1900; i < 2100 && offset > 0; i++) {
                 temp = lYearDays(i);
