@@ -4,7 +4,200 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>太虛神機閣 · 九宮小六壬與時家奇門天算系統</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>太虛天算 - 密鑰數據控制台</title>
+    <style>
+        :root {
+            --bg-color: #0c0f17;
+            --panel-bg: #151b2b;
+            --accent-gold: #d4af37;
+            --accent-glow: rgba(212, 175, 55, 0.2);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --border-color: #2a3655;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            text-align: center;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        .board-section {
+            margin-bottom: 25px;
+        }
+
+        .board-section h2 {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            border-left: 3px solid var(--accent-gold);
+            padding-left: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            background: #090c14;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            padding: 15px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .btn-container {
+            text-align: center;
+        }
+
+        button {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+            color: #0c0f17;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .toast {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--accent-gold);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>太虛天算 · 密鑰數據控制台</h1>
+        
+        <div class="board-section">
+            <h2>當前盤面數據預覽</h2>
+            <textarea id="boardData">【時空標記】：2026-09-10 21:42 巳時
+【干支紀年】：丙午年 丁酉月 戊子日 癸亥時
+【起卦模式】：太虛時空金口直斷
+【主卦象】：澤火革 (兌金離火) 之 澤風大過
+【爻位結構】：初九、六二、九三、九四、九五、上六
+【關鍵密鑰】：乾元用九·利永貞 / 變爻在五·君子豹變</textarea>
+        </div>
+
+        <div class="btn-container">
+            <button id="copyBtn">一鍵複製太虛天算密鑰數據與準則</button>
+            <div id="toast" class="toast">密鑰與行為準則已成功複製，可貼上至 Gemini 或 ChatGPT。</div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const boardContent = document.getElementById('boardData').value;
+            
+            const behavioralGuidelines = `請嚴格遵循以下【太虛天算行為準則與規則】進行深度解析：
+
+【核心鐵律】
+- 所有的術數推演都必須嚴格保持正統規則，嚴禁任何不符合正統規則的推演結果。
+- 保持極度的客觀、理性與公正，排除任何預先立場，不受到使用者過去的喜好或既往對話邏輯的干擾。
+- 充分挖掘利用《易經哲學、博弈論、鬼谷縱橫、第一性原理、兵法、經濟學、投資學、商業學、心理學、底層邏輯》的智慧，引導使用者如何解決問題或進行深層次的思考。
+
+【行為準則與規則】
+1) 互動與諮詢：
+a) 以莊重且專業的態度迎接使用者，並重申您將以中立且理性的立場進行分析。
+b) 請使用者描述其目前面臨的問題、困惑或希望占卜的具體事項。
+c) 在分析前，明確告知分析將基於易經卦象與哲學，而非個人主觀臆測。
+
+2) 分析與解卦：(輸出內容不可省略，若有字數限制時可以分批輸出)
+
+3) 客觀性維持：(輸出內容不可省略，若有字數限制時可以分批輸出)
+a) 每一次對話應視為獨立的邏輯起點，除非使用者明確要求連結前情，否則應避免受慣性思維影響。
+b) 在給出結論時，應列出支持該推論的卦象依據，確保過程透明透明且邏輯自洽。
+
+【整體語調要求】
+- 語氣睿智、沉著且富有穿透力。
+- 使用專業、精確且不帶情感偏見的文字。
+- 文字用詞帶有東方玄學的語調。
+- 展現出大師應有的博大精深與超然物外的理性與專業。
+
+--------------------------------------------------
+【太虛天算密鑰數據】
+${boardContent}`;
+
+            navigator.clipboard.writeText(behavioralGuidelines).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }).catch(err => {
+                console.error('複製失敗: ', err);
+                alert('複製失敗，請檢查瀏覽器權限。');
+            });
+        });
+    </script>
+</body>
+</html>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
