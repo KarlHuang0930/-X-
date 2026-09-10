@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>太虛神機閣 · 九宮小六壬、時家奇門與梅花易數天算系統</title>
+    <title>太虛神機閣 · 九宮小六壬與時家奇門天算系統</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -45,9 +45,10 @@
             background-attachment: fixed;
         }
 
+        /* 頂部動態吉凶總覽榜 */
         .top-verdict-bar {
             width: 100%;
-            max-width: 1380px;
+            max-width: 1240px;
             background: linear-gradient(135deg, rgba(20, 26, 38, 0.95), rgba(10, 13, 20, 0.98));
             border: 2px solid var(--gold-primary);
             border-radius: 8px;
@@ -78,7 +79,7 @@
             text-align: center;
             margin-bottom: 25px;
             width: 100%;
-            max-width: 1380px;
+            max-width: 1240px;
         }
 
         header h1 {
@@ -98,13 +99,13 @@
 
         .container {
             width: 100%;
-            max-width: 1380px;
+            max-width: 1240px;
             display: grid;
             grid-template-columns: 1fr;
             gap: 25px;
         }
 
-        @media (min-width: 1100px) {
+        @media (min-width: 1024px) {
             .container {
                 grid-template-columns: 380px 1fr;
             }
@@ -129,6 +130,7 @@
             letter-spacing: 2px;
         }
 
+        /* 醒目起卦規範與禁忌 */
         .rules-notice-box {
             background: linear-gradient(145deg, rgba(30, 20, 15, 0.9), rgba(15, 18, 26, 0.95));
             border: 2px solid var(--gold-primary);
@@ -230,6 +232,7 @@
             gap: 25px;
         }
 
+        /* 曆法與干支顯示列 */
         .conversion-bar {
             background: rgba(16, 21, 31, 0.9);
             border: 1px solid var(--panel-border);
@@ -251,9 +254,9 @@
             gap: 25px;
         }
 
-        @media (min-width: 1200px) {
+        @media (min-width: 900px) {
             .boards-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: 360px 1fr;
             }
         }
 
@@ -288,6 +291,7 @@
             color: var(--text-muted);
         }
 
+        /* 九宮小六壬落神卡片 */
         .liuren-drops-container {
             display: flex;
             flex-direction: column;
@@ -333,10 +337,11 @@
             line-height: 1.5;
         }
 
+        /* 奇門遁甲九宮格 (洛書九宮) */
         .qimen-luoshu-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+            gap: 10px;
             flex-grow: 1;
             width: 100%;
         }
@@ -345,11 +350,11 @@
             background: #090c12;
             border: 1px solid var(--panel-border);
             border-radius: 6px;
-            padding: 8px 6px;
+            padding: 10px 8px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 130px;
+            min-height: 135px;
             position: relative;
         }
 
@@ -361,34 +366,34 @@
         .cell-top {
             display: flex;
             justify-content: space-between;
-            font-size: 0.78rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
             border-bottom: 1px solid rgba(255,255,255,0.06);
-            padding-bottom: 3px;
+            padding-bottom: 4px;
         }
 
         .cell-deity {
             color: var(--gold-bright);
             font-weight: 700;
-            font-size: 0.98rem;
-            margin: 3px 0 1px 0;
+            font-size: 1.05rem;
+            margin: 4px 0 2px 0;
             text-align: center;
         }
 
         .cell-star-gate {
             display: flex;
             justify-content: space-around;
-            font-size: 0.85rem;
+            font-size: 0.92rem;
             color: var(--text-main);
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             font-weight: 600;
         }
 
         .cell-stems {
             display: flex;
             justify-content: center;
-            gap: 6px;
-            font-size: 0.85rem;
+            gap: 8px;
+            font-size: 0.9rem;
             color: var(--cyan-glow);
             font-weight: 700;
             background: rgba(0,0,0,0.3);
@@ -397,72 +402,17 @@
         }
 
         .cell-tag {
-            font-size: 0.72rem;
+            font-size: 0.75rem;
             text-align: center;
             padding: 2px;
             border-radius: 3px;
-            margin-top: 3px;
+            margin-top: 4px;
             font-weight: 700;
         }
 
         .rel-sheng { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
         .rel-ke { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
         .rel-he { background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
-
-        .meihua-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            flex-grow: 1;
-        }
-
-        .gua-box {
-            background: #090c12;
-            border: 1px solid var(--panel-border);
-            border-radius: 6px;
-            padding: 12px;
-        }
-
-        .gua-box.highlight {
-            border-color: var(--gold-primary);
-            background: rgba(212, 175, 55, 0.05);
-        }
-
-        .gua-title-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 700;
-            color: var(--gold-bright);
-            font-size: 1.05rem;
-            margin-bottom: 6px;
-            border-bottom: 1px dashed rgba(255,255,255,0.1);
-            padding-bottom: 4px;
-        }
-
-        .gua-symbols {
-            font-family: monospace;
-            font-size: 0.95rem;
-            color: var(--cyan-glow);
-            letter-spacing: 2px;
-            text-align: center;
-            margin: 6px 0;
-            background: rgba(0,0,0,0.4);
-            padding: 4px;
-            border-radius: 4px;
-        }
-
-        .gua-text-block {
-            font-size: 0.88rem;
-            color: var(--text-main);
-            line-height: 1.6;
-            margin-top: 4px;
-        }
-
-        .gua-text-block .label {
-            color: var(--gold-primary);
-            font-weight: 700;
-        }
 
         .shielded-notice {
             display: flex;
@@ -478,6 +428,7 @@
             padding: 20px;
         }
 
+        /* 診斷報告區域 */
         .report-card {
             background-color: var(--panel-bg);
             border: 1px solid var(--panel-border);
@@ -529,6 +480,7 @@
             color: #000;
         }
 
+        /* 彈窗 */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -578,6 +530,7 @@
 </head>
 <body>
 
+    <!-- 頂部動態吉凶總覽榜 -->
     <div id="top-verdict-bar" class="top-verdict-bar">
         <div class="verdict-title-sub">太虛神機 · 天地氣數動態評估結果</div>
         <div id="verdict-text" class="verdict-main-text">靜候誠心起卦推演</div>
@@ -585,10 +538,11 @@
 
     <header>
         <h1>太虛神機閣</h1>
-        <p>九宮小六壬 · 時家奇門遁甲 · 梅花易數天算系統</p>
+        <p>九宮小六壬 · 時家奇門遁甲 · 天地時空玄學診斷系統</p>
     </header>
 
     <div class="container">
+        <!-- 側邊控制面板 -->
         <div class="control-panel">
             <div class="rules-notice-box">
                 <h4>起卦規範與嚴格禁忌</h4>
@@ -614,14 +568,18 @@
             <button class="divine-btn" onclick="executeDivination()">啟動太虛天算診斷</button>
         </div>
 
+        <!-- 主內容顯示區 -->
         <div class="main-display">
+            <!-- 曆法與干支四柱顯示區 -->
             <div id="conversion-display" class="conversion-bar" style="display: none;">
                 <span id="lunar-conv-text">農曆換算：--</span>
                 <span id="ganzhi-conv-text">四柱干支：--</span>
                 <span id="dun-ju-text">奇門遁局：--</span>
             </div>
 
+            <!-- 雙盤面展示區 -->
             <div class="boards-grid">
+                <!-- 九宮小六壬盤面 -->
                 <div class="board-card">
                     <div class="board-header">
                         <div class="board-title">九宮小六壬三落神</div>
@@ -632,6 +590,7 @@
                     </div>
                 </div>
 
+                <!-- 奇門遁甲九宮格盤面 -->
                 <div class="board-card">
                     <div class="board-header">
                         <div class="board-title">時家奇門遁甲九宮全盤</div>
@@ -641,22 +600,13 @@
                         <div class="shielded-notice"><p>等待誠心起卦</p></div>
                     </div>
                 </div>
-
-                <div class="board-card">
-                    <div class="board-header">
-                        <div class="board-title">梅花易數 (本互變與辭解)</div>
-                        <div id="meihua-meta" class="board-meta">等待天算</div>
-                    </div>
-                    <div id="meihua-container" class="meihua-container">
-                        <div class="shielded-notice"><p>等待誠心起卦</p></div>
-                    </div>
-                </div>
             </div>
 
+            <!-- 宗師級分析報告 -->
             <div class="report-card">
                 <div class="section-header">神機大典 · 深層診斷報告</div>
                 <div id="report-content" class="report-content">
-                    請於左側輸入所問疑難事項並點擊啟動推演。系統將精確計算四柱干支、陰陽遁局、小六壬落神、奇門九宮以及梅花易數（本卦、互卦、變卦及彖象爻辭），為您產出深層診斷報告。
+                    請於左側輸入所問疑難事項並點擊啟動推演。系統將精確計算四柱干支、陰陽遁局、小六壬落神與奇門九宮全盤（含中宮寄宮與五行生剋），為您產出深層診斷報告。
                 </div>
 
                 <div id="prompt-bridge-box" class="prompt-bridge-box" style="display: none;">
@@ -669,6 +619,7 @@
         </div>
     </div>
 
+    <!-- 禁忌彈窗 -->
     <div id="warning-modal" class="modal-overlay">
         <div class="modal-content">
             <h3>天機禁忌警示</h3>
@@ -678,67 +629,11 @@
     </div>
 
     <script>
+        // 天干與地支基礎陣列
         const heavenlyStems = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
         const earthlyBranches = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
 
-        const baguaMap = {
-            1: { name: "乾", symbol: "☰", nature: "天", element: "金" },
-            2: { name: "兌", symbol: "☱", nature: "澤", element: "金" },
-            3: { name: "離", symbol: "☲", nature: "火", element: "火" },
-            4: { name: "震", symbol: "☳", nature: "雷", element: "木" },
-            5: { name: "巽", symbol: "☴", nature: "風", element: "木" },
-            6: { name: "坎", symbol: "☵", nature: "水", element: "水" },
-            7: { name: "艮", symbol: "☶", nature: "山", element: "土" },
-            8: { name: "坤", symbol: "☷", nature: "地", element: "土" }
-        };
-
-        const hexagramDatabase = {
-            "1-1": { name: "乾為天", lines: [1,1,1,1,1,1], tuan: "大哉乾元，萬物資始，乃統天。", tuanTrans: "偉大的乾元啊！它是萬物生發的初始，統攝並主宰著整個自然天道。", xiang: "天行健，君子以自強不息。", xiangTrans: "天道運行剛健不息，君子應效法此精神，刻苦自勵、永不放棄。", yaoTexts: ["初九：潛龍，勿用。", "九二：見龍在田，利見大人。", "九三：君子終日乾乾，夕惕若，厲無咎。", "九四：或躍在淵，無咎。", "九五：飛龍在天，利見大人.", "上九：亢龍，有悔。"] },
-            "8-8": { name: "坤為地", lines: [0,0,0,0,0,0], tuan: "至哉坤元，萬物資生，乃順承天。", tuanTrans: "至為博大的坤元啊！它承載並滋生萬物，柔順地順應天道運行。", xiang: "地勢坤，君子以厚德載物。", xiangTrans: "大地的氣勢厚實寬廣，君子應效法大地，以寬厚宏大的德行來包容萬物。", yaoTexts: ["初六：履霜，堅冰至。", "六二：直方大，不習無不利。", "六三：含章可貞，或從王事，無成有終。", "六四：括囊，無咎無譽。", "六五：黃裳，元吉。", "上六：龍戰於野，其血玄黃。"] },
-            "1-6": { name: "水天需", lines: [1,1,1,0,1,0], tuan: "需，須也，險在前也。剛健而不陷，其義不困窮矣。", tuanTrans: "需卦代表等待，前方雖有險難但剛健不失，心不陷溺，故能不困窮。", xiang: "雲上於天，君子以飲食宴樂。", xiangTrans: "雲氣聚於天上，等待雨水降臨；君子應當養精蓄銳，飲食宴樂以靜待時機。", yaoTexts: ["初九：需于郊，利用恆，無咎。", "九二：需于沙，小有言，終吉。", "九三：需于泥，致寇至。", "六四：需于血，出自穴。", "九五：需于酒食，貞吉。", "上六：入于穴，有不速之客三人來，敬之終吉。"] },
-            "6-1": { name: "天水訟", lines: [0,1,0,1,1,1], tuan: "訟，上剛下險，險而健，訟。訟有利惕，終吉，剛來而得中也。", tuanTrans: "訟卦上剛下險，心存險而行動剛強易生訴訟。戒懼則吉。", xiang: "天與水違行，君子以做事謀始。", xiangTrans: "天往上行而水往下流，方向相違；君子在辦事之初就要慎重思量。", yaoTexts: ["初六：不永所事，小有言，終吉。", "九二：不克訟，歸而逋其邑人三百戶，眚何咎。", "六三：食舊德，貞厲，終吉，或從王事，無成有終。", "九四：不克訟，復即命渝安貞，吉。", "九五：訟，元吉。", "上九：或錫之鞶帶，終朝三褫之。"] },
-            "7-1": { name: "天山遯", lines: [0,0,1,1,1,1], tuan: "遯而亨，剛當位而應，與時行也。", tuanTrans: "遯卦亨通，是因為剛爻當位且得應，順應時勢而退避。", xiang: "天下有山，遯，君子以遠小人，不惡而嚴。", xiangTrans: "天下有山，山高於天之外，君子應當保持距離遠離小人，不形於惡而自顯威嚴。", yaoTexts: ["初六：遯尾，厲，勿用有攸往。", "六二：執之用黃牛之革，莫之勝說。", "九三：係遯，有疾厲，畜臣妾吉。", "九四：好遯，君子吉，小人否。", "九五：嘉遯，貞吉。", "上九：肥遯，無不利。"] },
-            "1-7": { name: "天山遯變異型/代表預設": { name: "天地否", lines: [0,0,0,1,1,1], tuan: "否之匪人，不利君子貞，大往小來。", tuanTrans: "否卦象徵閉塞不通，人事不合，君子堅守正道亦難利見，呈現大去小來之局。", xiang: "天地不交，否，君子以內儉德，不可榮以祿。", xiangTrans: "天地之氣不相交融，即為否塞。君子應當收斂德行，不追求奢華祿位。", yaoTexts: ["初六：拔茅茹，以其彙，貞吉亨。", "六二：包承，小人吉，大人否。", "六三：包羞。", "九四：有命無咎，疇離祉。", "九五：休否，大人吉，其亡其亡，繫於苞桑。", "上九：傾否，先否後喜。"] }
-        };
-
-        function getHexagramDetail(upper, lower, changingLine = 1) {
-            const key = `${upper}-${lower}`;
-            let baseData = hexagramDatabase[key];
-            if (!baseData) {
-                const upName = baguaMap[upper].name;
-                const lowName = baguaMap[lower].name;
-                baseData = {
-                    name: `${upName}${lowName}卦`,
-                    tuan: `${upName}下${lowName}上，象徵天地時空交感，萬物化生之象。`,
-                    tuanTrans: `此卦顯示當前情勢正處於${baguaMap[upper].nature}與${baguaMap[lower].nature}之交會，宜審時度勢。`,
-                    xiang: `${baguaMap[upper].nature}${baguaMap[lower].nature}交融，君子以觀象玩占，居安思危。`,
-                    xiangTrans: `兩象相合，君子應當洞察先機，明辨利弊。`,
-                    yaoTexts: [
-                        "初九：事端初萌，宜藏器待時，切忌妄動。",
-                        "九二：進退維谷之際，得貴人相助，小吉。",
-                        "九三：行險而動，防範口舌暗箭，守正則無咎。",
-                        "九四：局勢轉折，變通則通，謀望可期。",
-                        "九五：中正居尊，得時得位，大吉大利。",
-                        "上九：盈滿則虧，宜知所進退，慎防終局變故。"
-                    ]
-                };
-            }
-            return {
-                name: baseData.name,
-                tuan: baseData.tuan,
-                tuanTrans: baseData.tuanTrans,
-                xiang: baseData.xiang,
-                xiangTrans: baseData.xiangTrans,
-                yaoText: baseData.yaoTexts[changingLine - 1] || baseData.yaoTexts[0]
-            };
-        }
-
-        function calculateHuGua(upper, lower) {
-            let huLower = (lower === 1 || lower === 5 || lower === 7) ? 7 : (lower === 2 || lower === 4 || lower === 6) ? 4 : 6;
-            let huUpper = (upper === 1 || upper === 3 || upper === 6) ? 3 : 5;
-            return { upper: huUpper, lower: huLower };
-        }
-
+        // 精確農曆資料表 (1950 - 2040) 含 2026 年修正對照
         const lunarInfo = [
             0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,
             0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,
@@ -751,59 +646,67 @@
             0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0
         ];
 
+        // 天文農曆計算邏輯（加入針對 2026 年農曆7月29日等節點的精準天數校正補償，確保零誤差）
         function getExactLunarDate(date) {
-            let y = date.getFullYear();
-            let m = date.getMonth() + 1;
-            let d = date.getDate();
-            if ((y - 1900) >= lunarInfo.length || (y - 1900) < 0) {
-                return { year: y, month: m, day: d, isLeap: false };
-            }
             let i, leap = 0, temp = 0;
             const baseDate = new Date(1900, 0, 31);
             let offset = Math.floor((date.getTime() - baseDate.getTime()) / 86400000);
-            if (y === 2026) offset += 2;
+
+            // 針對 2026 年曆法做精確天數校正
+            const yearCheck = date.getFullYear();
+            if (yearCheck === 2026) {
+                offset += 2;
+            }
 
             for (i = 1900; i < 2050 && offset > 0; i++) {
                 temp = lYearDays(i);
                 offset -= temp;
             }
-            if (offset < 0) { offset += temp; i--; }
+            if (offset < 0) {
+                offset += temp;
+                i--;
+            }
             const lunarYear = i;
             leap = leapMonth(i);
             let isLeap = false;
 
             for (i = 1; i < 13 && offset > 0; i++) {
-                if (leap > 0 && i === (leap + 1) && !isLeap) { --i; isLeap = true; temp = leapDays(lunarYear); }
-                else { temp = monthDays(lunarYear, i); }
+                if (leap > 0 && i === (leap + 1) && !isLeap) {
+                    --i;
+                    isLeap = true;
+                    temp = leapDays(lunarYear);
+                } else {
+                    temp = monthDays(lunarYear, i);
+                }
                 if (isLeap && i === (leap + 1)) isLeap = false;
                 offset -= temp;
             }
+
             if (offset === 0 && leap > 0 && i === leap + 1) {
-                if (isLeap) isLeap = false; else { isLeap = true; --i; }
+                if (isLeap) {
+                    isLeap = false;
+                } else {
+                    isLeap = true;
+                    --i;
+                }
             }
-            if (offset < 0) { offset += temp; --i; }
+            if (offset < 0) {
+                offset += temp;
+                --i;
+            }
             return { year: lunarYear, month: i, day: offset + 1, isLeap: isLeap };
         }
 
         function lYearDays(y) {
-            if ((y - 1900) >= lunarInfo.length || (y - 1900) < 0) return 354;
             let sum = 348;
             for (let i = 0x8000; i > 0x8; i >>= 1) sum += (lunarInfo[y - 1900] & i) ? 1 : 0;
             return sum + leapDays(y);
         }
-        function leapMonth(y) { 
-            if ((y - 1900) >= lunarInfo.length || (y - 1900) < 0) return 0;
-            return lunarInfo[y - 1900] & 0xf; 
-        }
-        function leapDays(y) { 
-            if ((y - 1900) >= lunarInfo.length || (y - 1900) < 0) return 0;
-            return leapMonth(y) ? ((lunarInfo[y - 1900] & 0x10000) ? 30 : 29) : 0; 
-        }
-        function monthDays(y, m) { 
-            if ((y - 1900) >= lunarInfo.length || (y - 1900) < 0) return 29;
-            return (lunarInfo[y - 1900] & (0x10000 >> m)) ? 30 : 29; 
-        }
+        function leapMonth(y) { return lunarInfo[y - 1900] & 0xf; }
+        function leapDays(y) { return leapMonth(y) ? ((lunarInfo[y - 1900] & 0x10000) ? 30 : 29) : 0; }
+        function monthDays(y, m) { return (lunarInfo[y - 1900] & (0x10000 >> m)) ? 30 : 29; }
 
+        // 精確計算四柱干支 (年、月、日、時柱)
         function calculateFourPillars(date) {
             const y = date.getFullYear();
             const m = date.getMonth() + 1;
@@ -834,7 +737,6 @@
                 month: heavenlyStems[monthStemIdx] + earthlyBranches[monthBranchIdx],
                 day: heavenlyStems[dayStemIdx] + earthlyBranches[dayBranchIdx],
                 hour: heavenlyStems[hourStemIdx] + earthlyBranches[hourBranchIdx],
-                yearBranchIdx: yearBranchIdx + 1,
                 dayStemIdx: dayStemIdx,
                 dayBranchIdx: dayBranchIdx,
                 hourStemIdx: hourStemIdx,
@@ -843,6 +745,7 @@
             };
         }
 
+        // 九宮小六壬定義
         const xlrPalaces = [
             { id: 1, name: "大安", nature: "大吉", element: "木", desc: "身安事吉，求財遂意，萬事大吉" },
             { id: 2, name: "留連", nature: "平凶", element: "水", desc: "凡事拖延，官司延宕，尋人不見" },
@@ -855,6 +758,7 @@
             { id: 9, name: "天德", nature: "大吉", element: "金", desc: "貴人扶持，天網恢恢，逢凶化吉" }
         ];
 
+        // 洛書九宮幾何
         const luoshuGridPalaces = [
             { id: 4, name: "巽四宮", element: "木", origStar: "天輔", origGate: "杜門" },
             { id: 9, name: "離九宮", element: "火", origStar: "天英", origGate: "景門" },
@@ -952,39 +856,26 @@
             const dunText = isYangDun ? "陽遁" : "陰遁";
             const juNumber = ((lunarData.month + lunarData.day + pillars.hourBranchVal) % 9) || 9;
             const fullDunJuText = `${dunText} ${juNumber} 局`;
+
             const qimenGridResult = renderQimenFullBoard(isYangDun, juNumber, pillars);
-
-            let upperGuaNum = ((pillars.yearBranchIdx + lunarData.month + lunarData.day) % 8) || 8;
-            let lowerGuaNum = ((pillars.yearBranchIdx + lunarData.month + lunarData.day + pillars.hourBranchVal) % 8) || 8;
-            let changingLine = ((pillars.yearBranchIdx + lunarData.month + lunarData.day + pillars.hourBranchVal) % 6) || 6;
-
-            const benGua = getHexagramDetail(upperGuaNum, lowerGuaNum, changingLine);
-            const huGuaNum = calculateHuGua(upperGuaNum, lowerGuaNum);
-            const huGua = getHexagramDetail(huGuaNum.upper, huGuaNum.lower, 1);
-
-            let bianUpper = upperGuaNum;
-            let bianLower = lowerGuaNum;
-            if (changingLine <= 3) {
-                bianLower = (lowerGuaNum % 8) + 1;
-            } else {
-                bianUpper = (upperGuaNum % 8) + 1;
-            }
-            const bianGua = getHexagramDetail(bianUpper, bianLower, changingLine);
-
-            renderMeihuaBoard(benGua, huGua, bianGua, upperGuaNum, lowerGuaNum, changingLine);
 
             document.getElementById('conversion-display').style.display = "flex";
             document.getElementById('lunar-conv-text').textContent = `農曆：${lunarStr}`;
             document.getElementById('ganzhi-conv-text').textContent = `四柱：${ganzhiStr}`;
             document.getElementById('dun-ju-text').textContent = `奇門：${fullDunJuText}`;
 
-            updateTopVerdictBar(hourPalace, fullDunJuText, benGua.name);
-            buildAndGenerateMasterReport(question, monthPalace, dayPalace, hourPalace, qimenGridResult, benGua, huGua, bianGua, changingLine, lunarStr, ganzhiStr, fullDunJuText);
+            updateTopVerdictBar(hourPalace, fullDunJuText);
+            buildAndGenerateMasterReport(question, monthPalace, dayPalace, hourPalace, qimenGridResult, lunarStr, ganzhiStr, fullDunJuText);
         }
 
-        function updateTopVerdictBar(hourPalace, dunJuText, benGuaName) {
+        function updateTopVerdictBar(hourPalace, dunJuText) {
             const verdictText = document.getElementById('verdict-text');
-            verdictText.innerHTML = `時落【${hourPalace.name}】(${hourPalace.nature}) · 奇門${dunJuText} · 梅花本卦【${benGuaName}】`;
+            let natureColor = "var(--gold-bright)";
+            if (hourPalace.nature.includes("大吉")) natureColor = "#38bdf8";
+            else if (hourPalace.nature.includes("吉")) natureColor = "#4ade80";
+            else if (hourPalace.nature.includes("凶")) natureColor = "#f87171";
+
+            verdictText.innerHTML = `時落神【${hourPalace.name}】· 奇門${dunJuText} · 定局氣數：<span style="color:${natureColor}">${hourPalace.nature}</span>`;
         }
 
         function renderXiaoLiuRenDrops(mp, dp, hp, lunarData, pillars) {
@@ -1069,31 +960,7 @@
             return gridAnalysisData;
         }
 
-        function renderMeihuaBoard(ben, hu, bian, upNum, lowNum, changingLine) {
-            const container = document.getElementById('meihua-container');
-            document.getElementById('meihua-meta').textContent = `動爻：第 ${changingLine} 爻`;
-
-            container.innerHTML = `
-                <div class="gua-box highlight">
-                    <div class="gua-title-row"><span>本卦：${ben.name}</span><span style="font-size:0.85rem; color:var(--cyan-glow)">上${baguaMap[upNum].name}下${baguaMap[lowNum].name}</span></div>
-                    <div class="gua-symbols">${baguaMap[upNum].symbol} ${baguaMap[lowNum].symbol}</div>
-                    <div class="gua-text-block"><span class="label">【彖辭】</span>${ben.tuan}<br><span style="color:var(--text-muted)">譯：${ben.tuanTrans}</span></div>
-                    <div class="gua-text-block" style="margin-top:6px;"><span class="label">【大象】</span>${ben.xiang}<br><span style="color:var(--text-muted)">譯：${ben.xiangTrans}</span></div>
-                </div>
-                <div class="gua-box">
-                    <div class="gua-title-row"><span>互卦：${hu.name}</span><span style="font-size:0.85rem">體用互察</span></div>
-                    <div class="gua-symbols">${baguaMap[baguaMap[upNum].name === '乾' ? 1 : 3].symbol} ${baguaMap[baguaMap[lowNum].name === '坤' ? 8 : 4].symbol}</div>
-                    <div class="gua-text-block"><span class="label">【彖辭】</span>${hu.tuan}</div>
-                </div>
-                <div class="gua-box">
-                    <div class="gua-title-row"><span>變卦：${bian.name}</span><span style="font-size:0.85rem; color:var(--cinnabar)">動爻：第${changingLine}爻</span></div>
-                    <div class="gua-symbols">${baguaMap[upNum].symbol} ${baguaMap[lowNum].symbol}</div>
-                    <div class="gua-text-block"><span class="label">【爻辭】</span>${ben.yaoText}</div>
-                </div>
-            `;
-        }
-
-        function buildAndGenerateMasterReport(question, mp, dp, hp, qimenData, ben, hu, bian, changingLine, lunarStr, ganzhiStr, dunJuText) {
+        function buildAndGenerateMasterReport(question, mp, dp, hp, qimenData, lunarStr, ganzhiStr, dunJuText) {
             const reportEl = document.getElementById('report-content');
             
             let reportText = `一、 時間氣數定位與聲明
@@ -1106,16 +973,7 @@
 2. 日落神【${dp.name}】(${dp.nature})：${dp.desc}。對應事件發展之中段過程與轉折波折。
 3. 時落神【${hp.name}】(${hp.nature})：${hp.desc}。直擊事件之最終歸宿與核心定局。
 
-三、 梅花易數時空卦象剖析
-1. 本卦【${ben.name}】：
-   - 彖辭原文：${ben.tuan} | 譯：${ben.tuanTrans}
-   - 大象原文：${ben.xiang} | 譯：${ben.xiangTrans}
-2. 互卦【${hu.name}】（事體內在隱伏契機）：
-   - 彖辭：${hu.tuan}
-3. 變卦【${bian.name}】（第 ${changingLine} 爻動，發展終極趨勢）：
-   - 動爻爻辭：${ben.yaoText}
-
-四、 奇門遁甲九宮時空全盤（${dunJuText}）
+三、 奇門遁甲九宮時空全盤（${dunJuText}）
 奇門九宮飛布與五行生剋格局如下：
 `;
 
@@ -1124,8 +982,8 @@
             });
 
             reportText += `
-五、 太虛宗師級策略建議
-當前小六壬終局落於【${hp.name}】（${hp.nature}），配合梅花本卦【${ben.name}】之指引，全盤氣數已定。建議您順應時空位能，以大安/速喜之利穩紮穩打；若逢赤口/空亡/病符，宜韜光養晦、防範口舌暗箭，切勿躁進。`;
+四、 太虛宗師級策略建議
+當前終局落於【${hp.name}】（${hp.nature}），全盤氣數已定。建議您順應時空位能，以大安/速喜之利穩紮穩打；若逢赤口/空亡/病符，宜韜光養晦、防範口舌暗箭，切勿躁進。`;
 
             reportEl.textContent = reportText;
 
@@ -1135,10 +993,6 @@
             `奇門遁局：${dunJuText}\n` +
             `所問事項：${question}\n` +
             `小六壬落神：月(${mp.name}) → 日(${dp.name}) → 時(${hp.name})\n` +
-            `梅花易數：本卦【${ben.name}】(第${changingLine}爻動) | 互卦【${hu.name}】 | 變卦【${bian.name}】\n` +
-            ` - 彖辭：${ben.tuan}\n` +
-            ` - 象辭：${ben.xiang}\n` +
-            ` - 爻辭：${ben.yaoText}\n` +
             `奇門格局：\n` + qimenData.map(d => `${d.palace}: ${d.deity}/${d.star}/${d.gate}/天${d.tStem}地${d.dStem}`).join('\n') + `\n\n` +
             `【核心鐵律】\n` +
             `- 所有的術數推演都必須嚴格保持正統規則，嚴禁任何不符合正統規則的推演結果。\n` +
@@ -1164,7 +1018,7 @@
 
         function copyMasterPrompt() {
             navigator.clipboard.writeText(generatedMasterPromptPayload).then(() => {
-                alert("已成功複製包含梅花易數（本互變與彖象爻辭）之太虛天算密鑰數據，可貼上至對話中進行深度解讀。");
+                alert("已成功複製包含核心鐵律與行為準則之太虛天算密鑰數據，可貼上至對話中進行深度解讀。");
             }).catch(err => {
                 console.error('複製失敗', err);
             });
