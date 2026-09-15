@@ -842,12 +842,8 @@
 
             <!-- 測字起卦 -->
             <div id="input-group-text" class="input-group" style="display: none;">
-                <label for="divine-word">測字（古典字占／筆畫法）：請輸入 1~10 個繁體楷書字。</label>
-                <input type="text" id="divine-word" placeholder="例如：問、發財、平安、投資成功" maxlength="10">
-                <label for="text-strokes" style="margin-top:8px;">各字繁體楷書筆畫（依輸入順序，逗號分隔）</label>
-                <input type="text" id="text-strokes" placeholder="例如：11 或 12,10 或 5,6,4" inputmode="numeric">
-                <label for="text-left-right" style="margin-top:8px;">若為一字占：左部筆畫,右部筆畫（例：7,6）</label>
-                <input type="text" id="text-left-right" placeholder="僅一字時填寫，例如 7,6" inputmode="numeric">
+                <label for="divine-word">測字（古典字占）：請輸入 1~4 個繁體中文字；系統依古法自動判定，無法可靠拆分時自動改用時間起卦。</label>
+                <input type="text" id="divine-word" placeholder="例如：問、一、二、平安" maxlength="4">
                 <div style="font-size:.76rem;color:var(--text-muted);margin-top:7px;line-height:1.5;">為避免瀏覽器自行猜筆畫數，本版不再使用 Unicode 編碼偽造筆畫。單字占必須辨左陽／右陰；多字占依古典分字規則，總筆畫取動爻。</div>
             </div>
 
@@ -1364,18 +1360,29 @@
             return (code % 10) + 1;
         }
 
-        function calculateStrokesFromText(str, hourBranchVal) {
-            const chars = Array.from(str.trim());
-            const h = hourBranchVal || 1;
-            if (!chars.length) throw new Error('未輸入測字內容。');
+        // 測字自動判定：不再要求使用者輸入筆畫或左右拆分。
+        // 原典《梅花易數》對一字占明定「左為陽、右為陰」，並列舉「彳、丿」為左、「一、乙、丶」為右；
+        // 但原典沒有為所有獨體字建立可程式化的左右筆畫表。因此，資料不足時一律拒絕臆測，交由時間起卦備援。
+        const singleCharSideMap = {
+            '彳':'left','丿':'left','一':'right','乙':'right','丶':'right','、':'right','乁':'right','⺄':'right'
+        };
 
-            // 正統《梅花易數》字占：一字須辨左陽、右陰筆畫；二至十字按字數結構分上下，
-            // 再以實際筆畫總數取動爻。系統不再用 Unicode code point 偽造筆畫數。
-            // 對無法可靠取得字形筆畫的字，要求使用者手動輸入筆畫數，避免污染盤面。
-            const rawStrokeInput = (document.getElementById('text-strokes')?.value || '').trim();
-            const strokes = rawStrokeInput ? rawStrokeInput.split(/[，,\s]+/).filter(Boolean).map(Number) : [];
-            if (!strokes.length || strokes.length !== chars.length || strokes.some(n => !Number.isInteger(n) || n < 1)) {
-                throw new Error(`測字起卦採正統筆畫法：請輸入 ${chars.length} 個字的繁體楷書筆畫數，例如「10,7,19」。`);
+        function getChineseCharStrokes(char) {
+            // 僅使用已明確建檔的傳統繁體楷書筆畫；絕不使用 Unicode code point 偽造筆畫。
+            if (strokeMap[char]) return strokeMap[char];
+            return null;
+        }
+
+        function calculateStrokesFromText(str, hourBranchVal) {
+            const chars = Array.from(str.trim()).filter(ch => /[\u3400-\u9FFF]/.test(ch));
+            const h = hourBranchVal || 1;
+            if (!chars.length) throw new Error('未輸入有效繁體中文字。');
+            if (chars.length > 4) throw new Error('測字模式限 1～4 個繁體中文字。');
+
+            const strokes = chars.map(getChineseCharStrokes);
+            if (strokes.some(n => !Number.isInteger(n) || n < 1)) {
+                const missing = chars.filter((c,i) => !strokes[i]).join('、');
+                throw new Error(`字「${missing}」目前沒有可靠的本地繁體楷書筆畫資料；為避免臆測，不自行猜筆畫，改用時間起卦。`);
             }
 
             const sum = strokes.reduce((a,b)=>a+b,0);
@@ -1383,32 +1390,41 @@
             const mod6 = n => (n % 6) || 6;
             let upperSum, lowerSum, movingSum = sum;
             let rule = '';
+            let method = '古典字占／自動筆畫法';
 
             if (chars.length === 1) {
-                const lr = (document.getElementById('text-left-right')?.value || '').trim();
-                const parts = lr.split(/[，,\s]+/).filter(Boolean).map(Number);
-                if (parts.length !== 2 || parts.some(n=>!Number.isInteger(n)||n<1)) {
-                    throw new Error('一字占需依楷書字形提供「左部筆畫,右部筆畫」，例如「7,6」；整字筆畫另填上方筆畫數。');
+                const ch = chars[0];
+                // 一字占不是任意「左右切半」。原典要求依楷書字形判左陽／右陰。
+                // 若只有單側筆畫而無可確認的另一側部件，無法可靠形成上下兩卦，故不補零、不猜測。
+                const side = singleCharSideMap[ch];
+                if (side) {
+                    throw new Error(`單字「${ch}」雖有《梅花易數》原典的左右陰陽例證（${side === 'left' ? '左陽' : '右陰'}），但原典未規定缺少另一側時如何補成完整上下卦；為避免臆測，改用時間起卦。`);
                 }
-                upperSum = parts[0];
-                lowerSum = parts[1];
-                rule = `一字占：左陽${upperSum}劃取上卦、右陰${lowerSum}劃取下卦、全字${sum}劃取動爻。`;
+                throw new Error(`單字「${ch}」目前沒有可靠的古法左右字形拆分資料；不自行左右切半，改用時間起卦。`);
+            }
+
+            // 《梅花易數》：二字一上一下；三字一上二下；四字平分上下。
+            if (chars.length === 2) {
+                upperSum = strokes[0];
+                lowerSum = strokes[1];
+                rule = '二字占：第一字取上卦、第二字取下卦；全字總畫數取動爻。';
+            } else if (chars.length === 3) {
+                upperSum = strokes[0];
+                lowerSum = strokes[1] + strokes[2];
+                rule = '三字占：第一字取上卦、第二至三字取下卦；全字總畫數取動爻。';
             } else {
-                let upperCount = Math.floor(chars.length / 2);
-                if (chars.length % 2) upperCount = Math.floor(chars.length / 2);
-                const lowerCount = chars.length - upperCount;
-                upperSum = strokes.slice(0, upperCount).reduce((a,b)=>a+b,0);
-                lowerSum = strokes.slice(upperCount).reduce((a,b)=>a+b,0);
-                rule = `${chars.length}字占：前${upperCount}字取上卦、後${lowerCount}字取下卦；全字總劃數取動爻。`;
+                upperSum = strokes[0] + strokes[1];
+                lowerSum = strokes[2] + strokes[3];
+                rule = '四字占：前二字取上卦、後二字取下卦；全字總畫數取動爻。';
             }
 
             return {
                 upper: mod8(upperSum), lower: mod8(lowerSum), moving: mod6(movingSum),
                 step1: mod8(upperSum), step2: mod8(upperSum + lowerSum),
                 finalPalaceIndex: mod8(upperSum + lowerSum + h),
-                breakdown: `測字「${chars.join('')}」：${rule}（筆畫：${strokes.join('、')}）`,
+                breakdown: `測字「${chars.join('')}」：${rule}（自動筆畫：${strokes.join('、')}）`,
                 strokeList: chars.map((char,i)=>({char,strokes:strokes[i]})),
-                method: '古典字占／筆畫法'
+                method
             };
         }
 
@@ -1531,7 +1547,10 @@
                     step2 = ((step1 + lunarData.day - 1 - 1) % 9) + 1;
                     finalPalaceIndex = ((step2 + pillars.hourBranchVal - 1 - 1) % 9) + 1;
 
-                    let yearNum = pillars.yearBranchIdx + 1;
+                    // 《梅花易數》「年月日時起例」：年數以農曆年地支計，子年一數、丑年二數……亥年十二數。
+                    // 這裡直接由本次起卦時刻的農曆年份計算年支，避免混用四柱立春年界。
+                    const lunarYearBranchIdx = ((lunarData.year - 4) % 12 + 12) % 12;
+                    const yearNum = lunarYearBranchIdx + 1;
                     let upperSum = yearNum + lunarData.month + lunarData.day;
                     upperTrig = (upperSum % 8) === 0 ? 8 : (upperSum % 8);
 
@@ -1551,16 +1570,33 @@
 
                 } else if (currentDivinationMode === 'text') {
                     let textCalc;
-                    try { textCalc = calculateStrokesFromText(wordInputVal, pillars.hourBranchVal); }
-                    catch (err) { showModal(err.message); return; }
-                    upperTrig = textCalc.upper;
-                    lowerTrig = textCalc.lower;
-                    movingLine = textCalc.moving;
+                    try {
+                        textCalc = calculateStrokesFromText(wordInputVal, pillars.hourBranchVal);
+                    } catch (err) {
+                        // 測字若無法依古法可靠判定，不臆測；直接備援為同一時刻的梅花時間起卦。
+                        // 奇門仍獨立依本次起卦時間起局，不因測字備援而改變起局規則。
+                        const lunarYearBranchIdx = ((lunarData.year - 4) % 12 + 12) % 12;
+                        const yearNum = lunarYearBranchIdx + 1;
+                        const upperSum = yearNum + lunarData.month + lunarData.day;
+                        const lowerSum = upperSum + pillars.hourBranchVal;
+                        upperTrig = (upperSum % 8) === 0 ? 8 : (upperSum % 8);
+                        lowerTrig = (lowerSum % 8) === 0 ? 8 : (lowerSum % 8);
+                        movingLine = (lowerSum % 6) === 0 ? 6 : (lowerSum % 6);
+                        step1 = ((lunarData.month - 1) % 6) + 1;
+                        step2 = ((step1 - 1 + lunarData.day - 1) % 6) + 1;
+                        finalPalaceIndex = ((step2 - 1 + pillars.hourBranchVal - 1) % 6) + 1;
+                        textBreakdownInfo = `測字「${wordInputVal}」無法依現有古法規則可靠拆分，未臆測；已自動改以起卦時間進行梅花易數時間起卦。原判定：${err.message}`;
+                    }
+                    if (textCalc) {
+                        upperTrig = textCalc.upper;
+                        lowerTrig = textCalc.lower;
+                        movingLine = textCalc.moving;
 
-                    step1 = ((textCalc.step1 - 1) % 6) + 1;
-                    step2 = ((step1 - 1 + textCalc.step2 - 1) % 6) + 1;
-                    finalPalaceIndex = ((step2 - 1 + textCalc.moving - 1) % 6) + 1;
-                    textBreakdownInfo = textCalc.breakdown;
+                        step1 = ((textCalc.step1 - 1) % 6) + 1;
+                        step2 = ((step1 - 1 + textCalc.step2 - 1) % 6) + 1;
+                        finalPalaceIndex = ((step2 - 1 + textCalc.moving - 1) % 6) + 1;
+                        textBreakdownInfo = textCalc.breakdown;
+                    }
                 }
 
                 // 小六壬與梅花起卦法獨立：無論梅花採時間／數字／測字，
